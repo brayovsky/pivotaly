@@ -16,15 +16,18 @@
   "main": "./extension",
   "contributes": {
     "commands": [
-    {
-      "command": "extension.sayHello",
-      "title": "Hello World"
-    }
+      {
+        "command": "extension.sayHello",
+        "title": "Hello World"
+      }
     ]
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "node ./node_modules/vscode/bin/test"
+  },
+  "dependencies": {
+    "restify-clients": "2.4.0"
   },
   "devDependencies": {
     "typescript": "^2.6.1",
