@@ -15,7 +15,32 @@
   ],
   "main": "./out/pivotaly",
   "contributes": {
-    "commands": []
+    "commands": [
+      {
+        "command": "pivotaly.startStory",
+        "title": "START STORY"
+      },
+      {
+        "command": "pivotaly.stopStory",
+        "title": "STOP STORY"
+      },
+      {
+        "command": "pivotaly.finishStory",
+        "title": "FINISH STORY"
+      },
+      {
+        "command": "pivotaly.deliverStory",
+        "title": "DELIVER STORY"
+      },
+      {
+        "command": "pivotaly.createStory",
+        "title": "CREATE STORY"
+      },
+      {
+        "command": "pivotaly.linkStory",
+        "title": "LINK STORY"
+      }
+    ]
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
