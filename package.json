@@ -11,16 +11,11 @@
     "Other"
   ],
   "activationEvents": [
-    "onCommand:extension.sayHello"
+    "*"
   ],
-  "main": "./extension",
+  "main": "./out/pivotaly",
   "contributes": {
-    "commands": [
-      {
-        "command": "extension.sayHello",
-        "title": "Hello World"
-      }
-    ]
+    "commands": []
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
