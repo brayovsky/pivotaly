@@ -1,6 +1,7 @@
 const vscode = require("vscode")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const { commandRepo } = require("../lib/commands")
+const {validate} = require("../lib/validation/validate")
 
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
@@ -13,6 +14,8 @@ function activate(context) {
   let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, commandRepo.linkStory)
   let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, commandRepo.showAllCommands)
   let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, commandRepo.registerToken)
+
+  validate("token", context, true)
 
   // dispose
   context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingCreate, pendingLink, pendingCommandPick, tokenRegistration);
