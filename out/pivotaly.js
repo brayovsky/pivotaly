@@ -13,12 +13,18 @@ function activate(context) {
   let pendingCreate = vscode.commands.registerCommand(commandRepo.commands.ptState.createStory, commandRepo.createStory)
   let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, commandRepo.linkStory)
   let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, commandRepo.showAllCommands)
-  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, commandRepo.registerToken)
+  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, function(ctx){
+    commandRepo.registerToken(ctx.context)
+  })
+  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, function(ctx){
+    commandRepo.registerProjectID(ctx.context)
+  })
 
   validate("token", context, true)
+  validate("projectID", context, true)
 
   // dispose
-  context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingCreate, pendingLink, pendingCommandPick, tokenRegistration);
+  context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingCreate, pendingLink, pendingCommandPick, tokenRegistration, projectIDRegistration);
 }
 exports.activate = activate;
 

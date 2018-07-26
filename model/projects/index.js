@@ -2,10 +2,11 @@ const {pivotalTracker} = require("../common")
 const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 
-exports.getStory = function(context, storyID, fields = []) {
+
+exports.getProject = function(context, fields = []) {
   fields = normaliseFields(fields)
   const options = {
-    path: `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`,
+    path: `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`,
     headers: {
       "X-TrackerToken": `${context.globalState.get(common.globals.APItoken)}`
     }
