@@ -1,8 +1,9 @@
 const {pivotalTracker} = require("../common")
 const {common} = require("../../lib/commands/common")
+const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 
 exports.getStory = function(context, storyID, fields = []) {
-  if(! Array.isArray(fields)) fields = String(fields).split(",")
+  fields = normaliseFields(fields)
   const options = {
     path: `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`,
     headers: {
@@ -13,15 +14,9 @@ exports.getStory = function(context, storyID, fields = []) {
   return new Promise(function (resolve, reject) {
     pivotalTracker.get(options, function (err, req, res, data){
       if(err)
-        reject({
-          res,
-          err
-        })
+        reject({res,err})
       else
-        resolve({
-          res,
-          data
-        })
+        resolve({res,data})
     })
   })
 }
