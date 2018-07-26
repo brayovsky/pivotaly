@@ -16,6 +16,7 @@ function activate(context) {
   let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, commandRepo.registerToken)
 
   validate("token", context, true)
+  validate("projectID", context, true)
 
   // dispose
   context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingCreate, pendingLink, pendingCommandPick, tokenRegistration);
