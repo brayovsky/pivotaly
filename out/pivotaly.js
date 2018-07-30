@@ -21,7 +21,9 @@ function activate(context) {
   })
 
   validate("token", context, true).then(function(res) {
-    validate("projectID", context, true)
+    validate("projectID", context, true).then(function(res){
+      // check story
+    })
   })
 
   // dispose
