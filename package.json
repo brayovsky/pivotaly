@@ -40,6 +40,23 @@
         "command": "pivotaly.linkStory",
         "title": "LINK STORY"
       }
+    ],
+    "configuration": [
+      {
+        "type": "",
+        "title": "Pivotaly Configuration",
+        "properties": {
+          "pivotaly.protectedBranches": {
+            "type": "array",
+            "title": "Protected branches",
+            "description": "Branches that typically are not feature branches",
+            "items": {
+              "type": "string"
+            },
+            "default": ["master", "develop"]
+          }
+        }
+      }
     ]
   },
   "scripts": {
