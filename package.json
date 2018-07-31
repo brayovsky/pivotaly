@@ -40,6 +40,29 @@
         "command": "pivotaly.linkStory",
         "title": "LINK STORY"
       }
+    ],
+    "configuration": [
+      {
+        "type": "",
+        "title": "Pivotaly Configuration",
+        "properties": {
+          "pivotaly.protectedBranches": {
+            "type": "array",
+            "title": "Protected branches",
+            "description": "Branches that typically are not feature branches",
+            "items": {
+              "type": "string"
+            },
+            "default": ["master", "develop"]
+          },
+          "pivotaly.branchDelimiter": {
+            "type": "string",
+            "title": "Branch delimiter",
+            "description": "Delimiter within branch to be used to obtain story id e.g in new-branch-2, delimiter is '-'",
+            "default": "-"
+          }
+        }
+      }
     ]
   },
   "scripts": {
@@ -48,7 +71,8 @@
   },
   "dependencies": {
     "restify-clients": "2.4.0",
-    "lodash": "4.17.10"
+    "lodash": "4.17.10",
+    "simple-git": "1.96.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
