@@ -54,6 +54,12 @@
               "type": "string"
             },
             "default": ["master", "develop"]
+          },
+          "pivotaly.branchDelimiter": {
+            "type": "string",
+            "title": "Branch delimiter",
+            "description": "Delimiter within branch to be used to obtain story id e.g in new-branch-2, delimiter is '-'",
+            "default": "-"
           }
         }
       }
