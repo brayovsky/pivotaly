@@ -1,7 +1,7 @@
 const vscode = require("vscode")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const { commandRepo } = require("../lib/commands")
-const {validate} = require("../lib/validation/validate")
+const {validate, validateStory} = require("../lib/validation/validate")
 
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
@@ -22,7 +22,7 @@ function activate(context) {
 
   validate("token", context, true).then(function(res) {
     validate("projectID", context, true).then(function(res){
-      // check story
+      validateStory(context)
     })
   })
 
