@@ -12,13 +12,8 @@ exports.getProject = function(context, fields = []) {
     }
   }
 
-  return new Promise(function (resolve, reject) {
+  return new Promise((resolve) => {
     // @ts-ignore
-    pivotalTracker.get(options, function (err, req, res, data){
-      if(err)
-        reject({res,err})
-      else
-        resolve({res,data})
-    })
+    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data}))
   })
 }
