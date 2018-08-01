@@ -2,6 +2,8 @@ const vscode = require("vscode")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const { commandRepo } = require("../lib/commands")
 const {validate, validateStory} = require("../lib/validation/validate")
+const path = require("path")
+const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git"))
 
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
@@ -24,6 +26,10 @@ function activate(context) {
     validate("projectID", context, true).then(function(res){
       validateStory(context)
     })
+  })
+
+  githook.on("post-checkout", () => {
+    validateStory(context)
   })
 
   // dispose

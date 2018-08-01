@@ -53,7 +53,10 @@
             "items": {
               "type": "string"
             },
-            "default": ["master", "develop"]
+            "default": [
+              "master",
+              "develop"
+            ]
           },
           "pivotaly.branchDelimiter": {
             "type": "string",
@@ -72,7 +75,8 @@
   "dependencies": {
     "restify-clients": "2.4.0",
     "lodash": "4.17.10",
-    "simple-git": "1.96.0"
+    "simple-git": "1.96.0",
+    "git-emit": "0.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
