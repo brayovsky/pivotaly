@@ -8,19 +8,15 @@ const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git")
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
 
-  let pendingStart = vscode.commands.registerCommand(commandRepo.commands.storyState.startStory, commandRepo.startStory)
+  let pendingStart = vscode.commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context))
   let pendingStop = vscode.commands.registerCommand(commandRepo.commands.storyState.stopStory, commandRepo.stopStory)
   let pendingFinish = vscode.commands.registerCommand(commandRepo.commands.storyState.finishStory, commandRepo.finishStory)
   let pendingDeliver = vscode.commands.registerCommand(commandRepo.commands.storyState.deliverStory, commandRepo.deliverStory)
   let pendingCreate = vscode.commands.registerCommand(commandRepo.commands.ptState.createStory, commandRepo.createStory)
   let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, commandRepo.linkStory)
-  let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, commandRepo.showAllCommands)
-  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, function(ctx){
-    return commandRepo.registerToken(ctx.context)
-  })
-  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, function(ctx){
-    return commandRepo.registerProjectID(ctx.context)
-  })
+  let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context))
+  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, (ctx) => commandRepo.registerToken(ctx.context))
+  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, (ctx) => commandRepo.registerProjectID(ctx.context))
 
   validate("token", context, true).then(function(res) {
     validate("projectID", context, true).then(function(res){
