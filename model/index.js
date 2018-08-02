@@ -1,8 +1,9 @@
 const {getStory} = require("./stories")
 const {getProject} = require("./projects")
-const {startStory} = require("./stories")
+const {updateState} = require("./stories")
+
 exports.model = {
   getStory,
   getProject,
-  startStory
+  updateState
 }
