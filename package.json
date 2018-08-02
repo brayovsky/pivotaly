@@ -78,7 +78,7 @@
     "restify-clients": "2.4.0",
     "rosie": "^2.0.1",
     "simple-git": "1.96.0",
-    "git-emit": "0.0.0",
+    "git-emit": "0.0.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
