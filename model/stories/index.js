@@ -24,10 +24,7 @@ const changeStoryState = (context, storyID, newState) => {
   })
 }
 
-exports.startStory = (context, storyID = null) => {
-  const newState = 'started'
-  if (storyID)
-    return changeStoryState(context, storyID, newState)
-  const story = getState(context).story
-  return changeStoryState(context, story, newState)
+exports.updateState = (context, newState, storyID = null) => {
+  return storyID ? changeStoryState(context, storyID, newState) :
+    changeStoryState(context, getState(context).story, newState)
 }
