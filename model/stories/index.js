@@ -1,27 +1,33 @@
-const {pivotalTracker} = require("../common")
+const {pivotalTracker, options} = require("../common")
 const {common} = require("../../lib/commands/common")
+const {normaliseFields} = require("../../lib/adapters/normaliseFields")
+const {getState} = require("../../lib/helpers/pivotaly")
 
-exports.getStory = function(context, storyID, fields = []) {
-  if(! Array.isArray(fields)) fields = String(fields).split(",")
-  const options = {
-    path: `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`,
-    headers: {
-      "X-TrackerToken": `${context.globalState.get(common.globals.APItoken)}`
-    }
-  }
+exports.getStory = (context, storyID, fields = []) => {
+  fields = normaliseFields(fields)
+  options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`
+  options.headers['X-TrackerToken'] = context.globalState.get(common.globals.APItoken)
 
-  return new Promise(function (resolve, reject) {
-    pivotalTracker.get(options, function (err, req, res, data){
-      if(err)
-        reject({
-          res,
-          err
-        })
-      else
-        resolve({
-          res,
-          data
-        })
-    })
+  return new Promise((resolve) => {
+    // @ts-ignore
+    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data})) 
   })
+}
+
+const changeStoryState = (context, storyID, newState) => {
+  let update = { current_state: newState }
+  options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}`
+  options.headers['X-TrackerToken'] = context.globalState.get(common.globals.APItoken)
+  return new Promise((resolve) => {
+    // @ts-ignore
+    pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
+  })
+}
+
+exports.startStory = (context, storyID = null) => {
+  const newState = 'started'
+  if (storyID)
+    return changeStoryState(context, storyID, newState)
+  const story = getState(context).story
+  return changeStoryState(context, story, newState)
 }
