@@ -33,10 +33,6 @@
         "title": "DELIVER STORY"
       },
       {
-        "command": "pivotaly.createStory",
-        "title": "CREATE STORY"
-      },
-      {
         "command": "pivotaly.linkStory",
         "title": "LINK STORY"
       }
