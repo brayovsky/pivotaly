@@ -50,6 +50,6 @@ Pivotaly may not track check-outs from bare repositories as expected.
 
 ## Release Notes
 
-### 1.0.0
+### 0.0.1
 
 Initial release of Pivotaly
