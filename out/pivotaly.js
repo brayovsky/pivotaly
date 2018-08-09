@@ -14,11 +14,11 @@ function activate(context) {
   let pendingDeliver = vscode.commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context))
   let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context))
   let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context))
-  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, (ctx) => commandRepo.registerToken(ctx.context))
-  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, (ctx) => commandRepo.registerProjectID(ctx.context))
+  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context))
+  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context))
 
-  validate("token", context, true).then(function(res) {
-    validate("projectID", context, true).then(function(res){
+  validate("token", context, true).then((res) => {
+    validate("projectID", context, true).then((res) => {
       validateStory(context)
     })
   })
