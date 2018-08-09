@@ -3,7 +3,7 @@ const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const { commandRepo } = require("../lib/commands")
 const {validate, validateStory} = require("../lib/validation/validate")
 const path = require("path")
-const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git"))
+const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git"), onEmitError)
 
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
@@ -36,4 +36,11 @@ exports.activate = activate;
 function deactivate() {
   // clean up
 }
+
+function onEmitError(err, emitter) {
+  if(err){
+    vscode.window.showErrorMessage("No git repository detected. Pivotaly will not work!!")
+  }
+}
+
 exports.deactivate = deactivate;
