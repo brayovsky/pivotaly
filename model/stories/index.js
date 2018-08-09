@@ -3,7 +3,7 @@ const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 const {getState} = require("../../lib/helpers/pivotaly")
 
-exports.getStory = (context, storyID, fields = []) => {
+const getStory = (context, storyID, fields = []) => {
   fields = normaliseFields(fields)
   options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`
   options.headers['X-TrackerToken'] = context.globalState.get(common.globals.APItoken)
@@ -23,8 +23,12 @@ const changeStoryState = (context, storyID, newState) => {
     pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
   })
 }
-
-exports.updateState = (context, newState, storyID = null) => {
+const updateState = (context, newState, storyID = null) => {
   return storyID ? changeStoryState(context, storyID, newState) :
     changeStoryState(context, getState(context).story, newState)
+}
+
+module.exports = {
+  getStory,
+  updateState
 }
