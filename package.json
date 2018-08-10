@@ -2,8 +2,12 @@
   "name": "pivotaly",
   "displayName": "pivotaly",
   "description": "Work seamlessly with pivotal tracker right from vs code",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "publisher": "brayovsky",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/brayovsky/pivotaly.git"
+  },
   "engines": {
     "vscode": "^1.25.0"
   },
@@ -31,10 +35,6 @@
       {
         "command": "pivotaly.deliverStory",
         "title": "DELIVER STORY"
-      },
-      {
-        "command": "pivotaly.createStory",
-        "title": "CREATE STORY"
       },
       {
         "command": "pivotaly.linkStory",

@@ -3,23 +3,22 @@ const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const { commandRepo } = require("../lib/commands")
 const {validate, validateStory} = require("../lib/validation/validate")
 const path = require("path")
-const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git"))
+const githook = require("git-emit")(path.join(vscode.workspace.rootPath, ".git"), onEmitError)
 
 function activate(context) {
   let PTStatusBarItem = createPTStatusBarItem()
 
   let pendingStart = vscode.commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context))
-  let pendingStop = vscode.commands.registerCommand(commandRepo.commands.storyState.stopStory, commandRepo.stopStory)
-  let pendingFinish = vscode.commands.registerCommand(commandRepo.commands.storyState.finishStory, commandRepo.finishStory)
-  let pendingDeliver = vscode.commands.registerCommand(commandRepo.commands.storyState.deliverStory, commandRepo.deliverStory)
-  let pendingCreate = vscode.commands.registerCommand(commandRepo.commands.ptState.createStory, commandRepo.createStory)
-  let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, commandRepo.linkStory)
+  let pendingStop = vscode.commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context))
+  let pendingFinish = vscode.commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context))
+  let pendingDeliver = vscode.commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context))
+  let pendingLink = vscode.commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context))
   let pendingCommandPick = vscode.commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context))
-  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, (ctx) => commandRepo.registerToken(ctx.context))
-  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, (ctx) => commandRepo.registerProjectID(ctx.context))
+  let tokenRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context))
+  let projectIDRegistration = vscode.commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context))
 
-  validate("token", context, true).then(function(res) {
-    validate("projectID", context, true).then(function(res){
+  validate("token", context, true).then((res) => {
+    validate("projectID", context, true).then((res) => {
       validateStory(context)
     })
   })
@@ -29,7 +28,7 @@ function activate(context) {
   })
 
   // dispose
-  context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingCreate, pendingLink, pendingCommandPick, tokenRegistration, projectIDRegistration);
+  context.subscriptions.push(PTStatusBarItem, pendingStart, pendingStop, pendingFinish, pendingDeliver, pendingLink, pendingCommandPick, tokenRegistration, projectIDRegistration);
 }
 exports.activate = activate;
 
@@ -37,4 +36,11 @@ exports.activate = activate;
 function deactivate() {
   // clean up
 }
+
+function onEmitError(err, emitter) {
+  if(err){
+    vscode.window.showErrorMessage("No git repository detected. Pivotaly will not work!!")
+  }
+}
+
 exports.deactivate = deactivate;
