@@ -50,6 +50,17 @@ Pivotaly may not track check-outs from bare repositories as expected.
 
 ## Release Notes
 
-### 0.0.1
+#### [Unreleased]
+- Support for workspaces that are not git repos
+- Support for workspaces with multiple git repos
 
-Initial release of Pivotaly
+## [0.0.2]
+#### Added
+- Error message when not in a git repo
+
+#### Fixed
+- Doesn't register different project IDs when switching workspaces 
+
+## [0.0.1]
+- Initial release
+
