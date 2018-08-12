@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.com/brayovsky/pivotaly.svg?branch=master)](https://travis-ci.com/brayovsky/pivotaly) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ef47d66521d4d22b8612679e746acf3)](https://www.codacy.com/project/Andela-eugene/pivotaly/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=brayovsky/pivotaly&amp;utm_campaign=Badge_Grade_Dashboard)
+
 # Pivotaly
 
 Pivotaly enables you to keep your work in sync with pivotal tracker without having to switch between the applications. Start, stop, finish and deliver stories that you are working on right from vscode.
