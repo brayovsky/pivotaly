@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.com/brayovsky/pivotaly.svg?branch=master)](https://travis-ci.com/brayovsky/pivotaly) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ef47d66521d4d22b8612679e746acf3)](https://www.codacy.com/project/Andela-eugene/pivotaly/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=brayovsky/pivotaly&amp;utm_campaign=Badge_Grade_Dashboard)
+[![Build Status](https://travis-ci.com/brayovsky/pivotaly.svg?branch=master)](https://travis-ci.com/brayovsky/pivotaly) [![Codacy Badge](https://api.codacy.com/project/badge/Grade/0ef47d66521d4d22b8612679e746acf3)](https://www.codacy.com/project/Andela-eugene/pivotaly/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=brayovsky/pivotaly&amp;utm_campaign=Badge_Grade_Dashboard) [![Coverage Status](https://coveralls.io/repos/github/brayovsky/pivotaly/badge.svg?branch=master)](https://coveralls.io/github/brayovsky/pivotaly?branch=master)
 
 # Pivotaly
 
