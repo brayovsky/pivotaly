@@ -3,3 +3,5 @@ node_modules
 *.vsix
 .idea
 coverage
+yarn-error.log
+yarn.lock
