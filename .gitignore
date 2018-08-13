@@ -2,3 +2,6 @@ node_modules
 .vscode-test/
 *.vsix
 .idea
+coverage
+yarn-error.log
+yarn.lock

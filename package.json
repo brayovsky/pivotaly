@@ -72,9 +72,15 @@
     "postinstall": "node ./node_modules/vscode/bin/install",
     "test": "jest"
   },
+  "jest": {
+     "collectCoverage": true,
+     "coverageReporters": ["json"]
+ },
   "dependencies": {
-    "restify-clients": "2.4.0",
+    "chance": "^1.0.16",
     "lodash": "4.17.10",
+    "restify-clients": "2.4.0",
+    "rosie": "^2.0.1",
     "simple-git": "1.96.0",
     "git-emit": "0.0.0"
   },
@@ -84,6 +90,7 @@
     "eslint": "^4.11.0",
     "jest": "^23.4.1",
     "typescript": "^2.6.1",
-    "vscode": "^1.1.6"
+    "vscode": "^1.1.6",
+    "jest-cli": "^23.5.0"
   }
 }
