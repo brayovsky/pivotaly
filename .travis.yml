@@ -3,7 +3,9 @@ node_js:
   - "7"
 
 before_install:
-  - npm install -g coveralls
+  - "yarn install"
+
+after_success: coveralls
 
 script:
   - "yarn test"
