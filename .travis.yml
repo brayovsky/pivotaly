@@ -5,7 +5,7 @@ node_js:
 before_install:
   - "yarn install"
 
-after_success: coveralls
-
 script:
   - "yarn test"
+
+after_success: coveralls
