@@ -7,3 +7,5 @@ before_install:
 
 script:
   - "yarn test"
+
+after_success: coveralls
