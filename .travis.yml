@@ -8,4 +8,5 @@ before_install:
 script:
   - "yarn test"
 
-after_success: coveralls
+after_script:
+  - yarn add coveralls && yarn run coveralls
