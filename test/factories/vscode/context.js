@@ -14,7 +14,7 @@ module.exports = new Factory()
         }
         const workspaceState = { 
           "pivotaly.state": JSON.stringify(state),
-          isARepo: chance.bool()
+          "pivotaly.isARepo": chance.bool()
         }
         return workspaceState[key]
       },
