@@ -1,6 +1,6 @@
 const {workspace, commands} = require("vscode")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
-const { commandRepo } = require("../lib/commands")
+const {commandRepo} = require("../lib/commands")
 const {validate, validateStory} = require("../lib/validation/validate")
 const path = require("path")
 const gitEmit = require("git-emit")
@@ -9,7 +9,8 @@ const {setState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
 
 async function activate(context) {
-  const isARepo = await isRepo(workspace.rootPath)
+  const rootPath = workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath
+  const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
   context.subscriptions.push(
@@ -32,7 +33,7 @@ async function activate(context) {
   })
   
   if(isARepo){
-    const gitHook = gitEmit(path.join(workspace.rootPath, ".git"))
+    const gitHook = gitEmit(path.join(rootPath, ".git"))
     gitHook.on("post-checkout", () => {
       validateStory(context)
     })
