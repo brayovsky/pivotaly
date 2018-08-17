@@ -6,9 +6,12 @@ const path = require("path")
 const gitEmit = require("git-emit")
 const isRepo = require("../lib/validation/validators/isRepo")
 const {setState} = require("../lib/helpers/pivotaly")
+const {common} = require("../lib/commands/common")
 
 async function activate(context) {
   const isARepo = await isRepo(workspace.rootPath)
+  context.workspaceState.update(common.globals.isARepo, isARepo)
+
   let PTStatusBarItem = createPTStatusBarItem()
 
   let pendingStart = commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context))
