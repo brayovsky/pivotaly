@@ -41,11 +41,12 @@ async function activate(context) {
   // run state migrations ;P
   setState(context)
 }
-exports.activate = activate;
-
 
 function deactivate() {
   // clean up
 }
 
-exports.deactivate = deactivate;
+module.exports = {
+  activate,
+  deactivate
+}
