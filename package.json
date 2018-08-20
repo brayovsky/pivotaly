@@ -17,6 +17,7 @@
   "keywords": [
     "pivotal tracker", "pivotal", "agile", "project management"
   ],
+  "icon": "images/pivotalyIcons/pivotalyIconldpi.png",
   "activationEvents": [
     "*"
   ],
