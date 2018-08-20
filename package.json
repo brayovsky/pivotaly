@@ -2,7 +2,7 @@
   "name": "pivotaly",
   "displayName": "pivotaly",
   "description": "Work seamlessly with pivotal tracker right from vs code",
-  "version": "0.0.2",
+  "version": "0.1.0",
   "publisher": "brayovsky",
   "repository": {
     "type": "git",
@@ -15,7 +15,10 @@
     "Other"
   ],
   "keywords": [
-    "pivotal tracker", "pivotal", "agile", "project management"
+    "pivotal tracker",
+    "pivotal",
+    "agile",
+    "project management"
   ],
   "icon": "images/pivotalyIcons/pivotalyIconldpi.png",
   "activationEvents": [
