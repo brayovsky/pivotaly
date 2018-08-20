@@ -14,6 +14,9 @@
   "categories": [
     "Other"
   ],
+  "keywords": [
+    "pivotal tracker", "pivotal", "agile", "project management"
+  ],
   "activationEvents": [
     "*"
   ],
@@ -73,9 +76,11 @@
     "test": "jest"
   },
   "jest": {
-     "collectCoverage": true,
-     "coverageReporters": ["json"]
- },
+    "collectCoverage": true,
+    "coverageReporters": [
+      "json"
+    ]
+  },
   "dependencies": {
     "chance": "^1.0.16",
     "lodash": "4.17.10",

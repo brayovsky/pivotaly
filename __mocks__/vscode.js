@@ -1,8 +1,16 @@
 // __mocks__/vscode.js
+
 module.exports = {
   workspace: {
     get: function(){ return {valueOne: 'one'}},
-    rootPath: 'rootPath',
+    workspaceFolders: [
+      {
+        uri: {
+          fsPath: 'rootPath'
+        }
+      }
+    ],
+
     getConfiguration: function () {
       return {
         get: function() {

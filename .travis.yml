@@ -1,12 +1,12 @@
 language: node_js
 node_js:
-  - "7"
+  - "8.9.3"
 
 before_install:
-  - "yarn install"
+  - "npm install"
 
 script:
-  - "yarn test"
+  - "npm test"
 
 after_script:
-  - yarn add coveralls && yarn run coveralls
+  - npm install coveralls && npm run coveralls
