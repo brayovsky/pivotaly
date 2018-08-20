@@ -25,8 +25,8 @@ async function activate(context) {
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context))
   )
 
-  validate("token", context, true).then((res) => {
-    validate("projectID", context, true).then((res) => {
+  validate("token", context, true).then(() => {
+    validate("projectID", context, true).then(() => {
       if (isARepo) validateStory(context)
       else validate("story", context)
     })
