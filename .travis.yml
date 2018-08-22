@@ -8,5 +8,5 @@ before_install:
 script:
   - "npm test"
 
-after_script:
+after_success:
   - npm install coveralls && npm run coveralls
