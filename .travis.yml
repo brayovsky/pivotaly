@@ -9,4 +9,4 @@ script:
   - "npm test"
 
 after_success:
-  - npm install coveralls && npm run coveralls
+  - jest --coverage --coverageReporters=text-lcov | coveralls
