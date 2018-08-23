@@ -8,5 +8,5 @@ before_install:
 script:
   - "npm test"
 
-after_script:
-  - npm install coveralls && npm run coveralls
+after_success:
+  - jest --coverage --coverageReporters=text-lcov | coveralls
