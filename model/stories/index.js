@@ -1,4 +1,4 @@
-const {pivotalTracker, options} = require("../common")
+const {pivotalTracker, options, setTokenHeader} = require("../common")
 const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 const {getState} = require("../../lib/helpers/pivotaly")
@@ -6,7 +6,7 @@ const {getState} = require("../../lib/helpers/pivotaly")
 const getStory = (context, storyID, fields = []) => {
   fields = normaliseFields(fields)
   options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`
-  options.headers['X-TrackerToken'] = context.globalState.get(common.globals.APItoken)
+  setTokenHeader(context, options)
 
   return new Promise((resolve) => {
     // @ts-ignore
@@ -17,7 +17,8 @@ const getStory = (context, storyID, fields = []) => {
 const changeStoryState = (context, storyID, newState) => {
   let update = { current_state: newState }
   options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}`
-  options.headers['X-TrackerToken'] = context.globalState.get(common.globals.APItoken)
+  setTokenHeader(context, options)
+
   return new Promise((resolve) => {
     // @ts-ignore
     pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
