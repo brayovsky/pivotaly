@@ -1,12 +1,12 @@
-const {pivotalTracker, options, setTokenHeader} = require("../common")
+const {pivotalTracker, setOptions} = require("../common")
 const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 
 
 exports.getProject = function(context, fields = []) {
   fields = normaliseFields(fields)
-  options.path = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`
-  setTokenHeader(context, options)
+  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`
+  const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
     // @ts-ignore
