@@ -9,7 +9,6 @@ const getStory = (context, storyID, fields = []) => {
   const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
-    // @ts-ignore
     pivotalTracker.get(options, (err, req, res, data) => resolve({res,data})) 
   })
 }
@@ -20,7 +19,6 @@ const changeStoryState = (context, storyID, newState) => {
   const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
-    // @ts-ignore
     pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
   })
 }

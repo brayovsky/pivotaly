@@ -9,7 +9,6 @@ exports.getProject = function(context, fields = []) {
   const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
-    // @ts-ignore
     pivotalTracker.get(options, (err, req, res, data) => resolve({res,data}))
   })
 }
