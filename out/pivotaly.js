@@ -1,6 +1,6 @@
-const {workspace, commands} = require("vscode")
+const {workspace, commands, window, ViewColumn} = require("vscode")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
-const {commandRepo} = require("../lib/commands")
+const commandRepo = require("../lib/commands")
 const {validate, validateStory} = require("../lib/validation/validate")
 const path = require("path")
 const gitEmit = require("git-emit")
@@ -22,9 +22,10 @@ async function activate(context) {
     commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context))
+    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
+    commands.registerCommand(commandRepo.commands.statistics.cycleTime, () =>  commandRepo.showStats(context))
   )
-
+  
   validate("token", context, true).then(() => {
     validate("projectID", context, true).then(() => {
       if (isARepo) validateStory(context)

@@ -1,19 +1,14 @@
-const {pivotalTracker} = require("../common")
+const {pivotalTracker, setOptions} = require("../common")
 const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 
 
 exports.getProject = function(context, fields = []) {
   fields = normaliseFields(fields)
-  const options = {
-    path: `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`,
-    headers: {
-      "X-TrackerToken": `${context.globalState.get(common.globals.APItoken)}`
-    }
-  }
+  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`
+  const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
-    // @ts-ignore
     pivotalTracker.get(options, (err, req, res, data) => resolve({res,data}))
   })
 }
