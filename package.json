@@ -29,28 +29,27 @@
     "commands": [
       {
         "command": "pivotaly.startStory",
-        "title": "START STORY"
+        "title": "Start story"
       },
       {
         "command": "pivotaly.stopStory",
-        "title": "STOP STORY"
+        "title": "Stop story"
       },
       {
         "command": "pivotaly.finishStory",
-        "title": "FINISH STORY"
+        "title": "Finish story"
       },
       {
         "command": "pivotaly.deliverStory",
-        "title": "DELIVER STORY"
+        "title": "Deliver story"
       },
       {
         "command": "pivotaly.linkStory",
-        "title": "LINK STORY"
+        "title": "Link story"
       }
     ],
     "configuration": [
       {
-        "type": "",
         "title": "Pivotaly Configuration",
         "properties": {
           "pivotaly.protectedBranches": {
