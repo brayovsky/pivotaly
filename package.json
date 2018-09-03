@@ -72,7 +72,28 @@
           }
         }
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pivotaly-info",
+          "title": "Pivotaly",
+          "icon": "images/pivotalyIcons/pivotaly-mono.svg"
+        }
+      ]
+    },
+    "views": {
+      "pivotaly-info": [
+        {
+          "id": "pivotaly.view.membercycle",
+          "name": "Member cycle time"
+        },
+        {
+          "id": "pivotaly.view.state",
+          "name": "Current story"
+        }
+      ]
+    }
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
