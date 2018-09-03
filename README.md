@@ -24,8 +24,13 @@ Pivotaly enables you to keep your work in sync with pivotal tracker without havi
 
 
 
-![feature X](images/features.png)
+#
+#### Change story state
+![Change Story State](images/features/start-story.gif)
 
+#
+#### View member cycle time
+![View Member Cycle Time](images/features/cycle-time.gif)
 
 
 ## Requirements
