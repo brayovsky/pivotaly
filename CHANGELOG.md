@@ -8,6 +8,9 @@ All notable changes to the "pivotaly" extension will be documented in this file.
 #### Added
 - Add cycle time per member
 
+#### Fixed
+- Links invalid story id
+
 ## [0.1.0]
 - Support for workspaces that are not git repos
 
