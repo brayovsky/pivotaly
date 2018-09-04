@@ -113,7 +113,8 @@
     "lodash": "4.17.10",
     "restify-clients": "2.4.0",
     "rosie": "^2.0.1",
-    "simple-git": "1.96.0"
+    "simple-git": "1.96.0",
+    "implement-js": "^0.0.26"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",
