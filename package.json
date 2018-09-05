@@ -87,10 +87,6 @@
         {
           "id": "pivotaly.view.membercycle",
           "name": "Member cycle time"
-        },
-        {
-          "id": "pivotaly.view.state",
-          "name": "Current story"
         }
       ]
     }
