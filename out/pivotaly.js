@@ -27,7 +27,7 @@ async function activate(context) {
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
-    commands.registerCommand(commandRepo.commands.statistics.cycleTime, () =>  commandRepo.showStats(context))
+    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number))
   )
 
   validate("token", context, true).then(() => {
