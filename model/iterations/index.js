@@ -10,7 +10,7 @@ const getIterations = (context, scope) => {
   )
 }
 
-const getIterationCycleTime = (context, iterationNumber = 0) => {
+const getIterationCycleTime = (context, iterationNumber = 1) => {
   const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/iterations/${iterationNumber}/analytics/cycle_time_details`
   const options = setOptions(context, endpoint)
 
