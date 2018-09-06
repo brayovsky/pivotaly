@@ -7,7 +7,7 @@ const commandRepo = require("../lib/commands")
 const isRepo = require("../lib/validation/validators/isRepo")
 const {setState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
-const CycleTimeDataProvider = require('../lib/helpers/views/cycleTimeDataProvider')
+const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 
 async function activate(context) {
   const rootPath = workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath
