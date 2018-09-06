@@ -2,7 +2,15 @@
 All notable changes to the "pivotaly" extension will be documented in this file.
 
 #### [Unreleased]
-- Option to pick iteration when displaying cycle time
+- Story details preview
+
+## [0.2.1]
+#### Added
+- Contributions to views
+- Option to pick iteration to view member cycle time for
+
+#### Fixed
+- Some git repo workspaces registering as non-repositories
 
 ## [0.2.0]
 #### Added
