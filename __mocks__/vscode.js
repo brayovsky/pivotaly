@@ -35,4 +35,13 @@ module.exports = {
   StatusBarAlignment: {
     right: 'right'
   },
+  TreeItem: class {
+    constructor(label) {
+      this.label = label
+    }
+  },
+  TreeItemCollapsibleState: {
+    Collapsed: 1,
+    None: 2
+  }
 }
