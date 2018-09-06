@@ -2,7 +2,7 @@
   "name": "pivotaly",
   "displayName": "pivotaly",
   "description": "Work seamlessly with pivotal tracker right from vs code",
-  "version": "0.1.2",
+  "version": "0.2.0",
   "publisher": "brayovsky",
   "repository": {
     "type": "git",
@@ -72,7 +72,24 @@
           }
         }
       }
-    ]
+    ],
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "pivotaly-info",
+          "title": "Pivotaly",
+          "icon": "images/pivotalyIcons/pivotaly-mono.svg"
+        }
+      ]
+    },
+    "views": {
+      "pivotaly-info": [
+        {
+          "id": "pivotaly.view.membercycle",
+          "name": "Member cycle time"
+        }
+      ]
+    }
   },
   "scripts": {
     "postinstall": "node ./node_modules/vscode/bin/install",
@@ -92,7 +109,8 @@
     "lodash": "4.17.10",
     "restify-clients": "2.4.0",
     "rosie": "^2.0.1",
-    "simple-git": "1.96.0"
+    "simple-git": "1.96.0",
+    "moment": "^2.22.2"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",

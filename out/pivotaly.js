@@ -1,20 +1,24 @@
-const {workspace, commands, window, ViewColumn} = require("vscode")
-const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
-const commandRepo = require("../lib/commands")
-const {validate, validateStory} = require("../lib/validation/validate")
+const {workspace, commands, window} = require("vscode")
 const path = require("path")
 const gitEmit = require("git-emit")
+const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
+const {validate, validateStory} = require("../lib/validation/validate")
+const commandRepo = require("../lib/commands")
 const isRepo = require("../lib/validation/validators/isRepo")
 const {setState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
+const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 
 async function activate(context) {
   const rootPath = workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
+  const cycleTimeProvider = new CycleTimeDataProvider(context)
+
   context.subscriptions.push(
     createPTStatusBarItem(),
+    window.registerTreeDataProvider('pivotaly.view.membercycle', cycleTimeProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
@@ -23,9 +27,9 @@ async function activate(context) {
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
-    commands.registerCommand(commandRepo.commands.statistics.cycleTime, () =>  commandRepo.showStats(context))
+    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number))
   )
-  
+
   validate("token", context, true).then(() => {
     validate("projectID", context, true).then(() => {
       if (isARepo) validateStory(context)
