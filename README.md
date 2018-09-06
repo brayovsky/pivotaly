@@ -22,6 +22,10 @@ Pivotaly enables you to keep your work in sync with pivotal tracker without havi
     
     Assign a story to a git branch
 
+- Member cycle time
+    
+    View cycle time per members per iteration
+
 
 
 #
@@ -35,8 +39,8 @@ Pivotaly enables you to keep your work in sync with pivotal tracker without havi
 
 ## Requirements
 
-#### 1. Git
-Pivotaly relies on git branches for an efficient flow. i.e. Pivotaly assumes a single pivotal tracker story corresponds to a single git branch.
+#### 1. Git (Optional)
+Pivotaly can rely on git branches for an efficient flow. i.e. Pivotaly assumes a single pivotal tracker story corresponds to a single git branch.
 
 A story id is prepended or appended to a git branch to link a story to a branch automatically. e.g `ft-edit-read-me-345` will assume `345`  is the story id.
 
@@ -58,7 +62,15 @@ Pivotaly may not track check-outs from bare repositories as expected.
 ## Release Notes
 
 #### [Unreleased]
-- Option to pick iteration when displaying cycle time
+- Story details preview
+
+## [0.2.1]
+#### Added
+- Contributions to views
+- Option to pick iteration to view member cycle time for
+
+#### Fixed
+- Some git repo workspaces registering as non-repositories
 
 ## [0.2.0]
 #### Added
