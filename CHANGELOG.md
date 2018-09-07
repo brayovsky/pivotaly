@@ -4,6 +4,10 @@ All notable changes to the "pivotaly" extension will be documented in this file.
 #### [Unreleased]
 - Story details preview
 
+## [0.2.2]
+#### Fixed
+- Information notifications not showing
+
 ## [0.2.1]
 #### Added
 - Contributions to views

@@ -64,6 +64,10 @@ Pivotaly may not track check-outs from bare repositories as expected.
 #### [Unreleased]
 - Story details preview
 
+## [0.2.2]
+#### Fixed
+- Information notifications not showing
+
 ## [0.2.1]
 #### Added
 - Contributions to views
