@@ -19,7 +19,7 @@ async function activate(context) {
   context.subscriptions.push(
     createPTStatusBarItem(),
     window.registerTreeDataProvider('pivotaly.view.membercycle', cycleTimeProvider),
-    commands.registerCommand(commandRepo.commands.storyState.startStory, () => {commandRepo.startStory(context)}),
+    commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
