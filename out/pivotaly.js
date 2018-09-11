@@ -10,8 +10,8 @@ const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 
 async function activate(context) {
-  const rootPath = workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath
-  const isARepo = rootPath ? await isRepo(rootPath) : await isRepo(workspace.rootPath)
+  const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
+  const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
   const cycleTimeProvider = new CycleTimeDataProvider(context)
