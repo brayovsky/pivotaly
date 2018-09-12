@@ -4,8 +4,11 @@ const {normaliseFields} = require("../../lib/adapters/normaliseFields")
 const {getState} = require("../../lib/helpers/pivotaly")
 
 const getStory = (context, storyID, fields = []) => {
-  fields = normaliseFields(fields)
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?fields=${fields.join()}`
+  fields = normaliseFields(fields).join()
+
+  let endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?`
+
+  if(fields) endpoint += `fields=${fields}`
   const options = setOptions(context, endpoint)
 
   return new Promise((resolve) => {
