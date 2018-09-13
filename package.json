@@ -29,23 +29,28 @@
     "commands": [
       {
         "command": "pivotaly.startStory",
-        "title": "Start story"
+        "title": "Start story",
+        "icon": "images/pivotalyIcons/start/start.svg"
       },
       {
         "command": "pivotaly.stopStory",
-        "title": "Stop story"
+        "title": "Stop story",
+        "icon": "images/pivotalyIcons/stop/stop.svg"
       },
       {
         "command": "pivotaly.finishStory",
-        "title": "Finish story"
+        "title": "Finish story",
+        "icon": "images/pivotalyIcons/finish/finish.svg"
       },
       {
         "command": "pivotaly.deliverStory",
-        "title": "Deliver story"
+        "title": "Deliver story",
+        "icon": "images/pivotalyIcons/deliver/deliver.svg"
       },
       {
         "command": "pivotaly.linkStory",
-        "title": "Link story"
+        "title": "Link story",
+        "icon": "images/pivotalyIcons/link/link.svg"
       }
     ],
     "configuration": [
@@ -87,6 +92,39 @@
         {
           "id": "pivotaly.view.membercycle",
           "name": "Member cycle time"
+        },
+        {
+          "id": "pivotaly.view.storyinfo",
+          "name": "Story Information"
+        }
+      ]
+    },
+    "menus": {
+      "view/title": [
+        {
+          "command": "pivotaly.linkStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@5"
+        },
+        {
+          "command": "pivotaly.startStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@1"
+        },
+        {
+          "command": "pivotaly.stopStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@2"
+        },
+        {
+          "command": "pivotaly.finishStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@3"
+        },
+        {
+          "command": "pivotaly.deliverStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@4"
         }
       ]
     }
