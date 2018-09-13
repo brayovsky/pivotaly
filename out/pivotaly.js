@@ -8,17 +8,24 @@ const isRepo = require("../lib/validation/validators/isRepo")
 const {setState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
+const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 
-async function activate(context) {
+const runMigrations = context =>  setState(context)
+
+const activate = async context => {
+  await runMigrations(context)
+
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
   const cycleTimeProvider = new CycleTimeDataProvider(context)
+  const storyInfoProvider = new StoryInfoDataProvider(context)
 
   context.subscriptions.push(
     createPTStatusBarItem(),
     window.registerTreeDataProvider('pivotaly.view.membercycle', cycleTimeProvider),
+    window.registerTreeDataProvider('pivotaly.view.storyinfo', storyInfoProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
@@ -43,12 +50,9 @@ async function activate(context) {
       validateStory(context)
     })
   }
-
-  // run state migrations ;P
-  setState(context)
 }
 
-function deactivate() {
+const deactivate = () => {
   // clean up
 }
 
