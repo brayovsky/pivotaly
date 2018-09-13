@@ -5,7 +5,7 @@ const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const {validate, validateStory} = require("../lib/validation/validate")
 const commandRepo = require("../lib/commands")
 const isRepo = require("../lib/validation/validators/isRepo")
-const {setState} = require("../lib/helpers/pivotaly")
+const {setState, refreshState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
@@ -34,7 +34,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
-    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number))
+    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number)),
+    commands.registerCommand(commandRepo.commands.storyState.refreshStory, refreshState)
   )
 
   validate("token", context, true).then(() => {
