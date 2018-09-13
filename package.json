@@ -30,27 +30,50 @@
       {
         "command": "pivotaly.startStory",
         "title": "Start story",
-        "icon": "images/pivotalyIcons/start/start.svg"
+        "icon": {
+          "light": "images/octicons/triangle-right.svg",
+          "dark": "images/octicons/triangle-right-light.svg"
+        }
       },
       {
         "command": "pivotaly.stopStory",
         "title": "Stop story",
-        "icon": "images/pivotalyIcons/stop/stop.svg"
+        "icon": {
+          "light": "images/octicons/primitive-square.svg",
+          "dark": "images/octicons/primitive-square-light.svg"
+        }
       },
       {
         "command": "pivotaly.finishStory",
         "title": "Finish story",
-        "icon": "images/pivotalyIcons/finish/finish.svg"
+        "icon": {
+          "light": "images/octicons/check.svg",
+          "dark": "images/octicons/check-light.svg"
+        }
       },
       {
         "command": "pivotaly.deliverStory",
         "title": "Deliver story",
-        "icon": "images/pivotalyIcons/deliver/deliver.svg"
+        "icon": {
+          "light": "images/octicons/briefcase.svg",
+          "dark": "images/octicons/briefcase-light.svg"
+        }
       },
       {
         "command": "pivotaly.linkStory",
         "title": "Link story",
-        "icon": "images/pivotalyIcons/link/link.svg"
+        "icon": {
+          "light": "images/octicons/link.svg",
+          "dark": "images/octicons/link-light.svg"
+        }
+      },
+      {
+        "command": "pivotaly.refreshStory",
+        "title": "Reload story",
+        "icon": {
+          "light": "images/octicons/sync.svg",
+          "dark": "images/octicons/sync-light.svg"
+        }
       }
     ],
     "configuration": [
@@ -125,6 +148,11 @@
           "command": "pivotaly.deliverStory",
           "when": "view == pivotaly.view.storyinfo",
           "group": "navigation@4"
+        },
+        {
+          "command": "pivotaly.refreshStory",
+          "when": "view == pivotaly.view.storyinfo",
+          "group": "navigation@5"
         }
       ]
     }
