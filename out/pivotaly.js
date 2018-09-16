@@ -12,7 +12,7 @@ const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 
 
 const activate = async context => {
-  refreshState(context)
+  await refreshState(context)
 
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
