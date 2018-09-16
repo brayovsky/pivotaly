@@ -5,15 +5,14 @@ const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const {validate, validateStory} = require("../lib/validation/validate")
 const commandRepo = require("../lib/commands")
 const isRepo = require("../lib/validation/validators/isRepo")
-const {setState, refreshState} = require("../lib/helpers/pivotaly")
+const {refreshState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 
-const runMigrations = context =>  setState(context)
 
 const activate = async context => {
-  await runMigrations(context)
+  refreshState(context)
 
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
