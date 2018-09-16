@@ -10,7 +10,8 @@ module.exports = new Factory()
         const state = {
           branch: chance.string(),
           story: chance.string(),
-          isChore: chance.bool()
+          isChore: chance.bool(),
+          storyDetails:{}
         }
         const workspaceState = { 
           "pivotaly.state": JSON.stringify(state),
