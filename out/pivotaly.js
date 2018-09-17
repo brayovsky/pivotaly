@@ -21,6 +21,7 @@ const activate = async context => {
   const cycleTimeProvider = new CycleTimeDataProvider(context)
   const storyInfoProvider = new StoryInfoDataProvider(context)
 
+  // TODO: mask view ids
   context.subscriptions.push(
     createPTStatusBarItem(),
     window.registerTreeDataProvider('pivotaly.view.membercycle', cycleTimeProvider),
@@ -34,7 +35,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number)),
-    commands.registerCommand(commandRepo.commands.storyState.refreshStory, refreshState)
+    commands.registerCommand(commandRepo.commands.storyState.refreshStory, refreshState),
+    commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context))
   )
 
   validate("token", context, true).then(() => {
