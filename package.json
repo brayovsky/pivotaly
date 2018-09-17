@@ -74,6 +74,38 @@
           "light": "images/octicons/sync.svg",
           "dark": "images/octicons/sync-light.svg"
         }
+      },
+      {
+        "command": "pivotaly.deliverTask",
+        "title": "Deliver Task",
+        "icon": {
+          "light": "images/other/square-regular.svg",
+          "dark": "images/other/square-regular-light.svg"
+        }
+      },
+      {
+        "command": "pivotaly.unDeliverTask",
+        "title": "Undeliver Task",
+        "icon": {
+          "light": "images/other/check-square-regular.svg",
+          "dark": "images/other/check-square-regular-light.svg"
+        }
+      },
+      {
+        "command": "pivotaly.resolveBlocker",
+        "title": "Resolve Blocker",
+        "icon": {
+          "light": "images/other/square-regular.svg",
+          "dark": "images/other/square-regular-light.svg"
+        }
+      },
+      {
+        "command": "pivotaly.unResolveBlocker",
+        "title": "Unresolve Blocker",
+        "icon": {
+          "light": "images/other/check-square-regular.svg",
+          "dark": "images/other/check-square-regular-light.svg"
+        }
       }
     ],
     "configuration": [
@@ -153,6 +185,28 @@
           "command": "pivotaly.refreshStory",
           "when": "view == pivotaly.view.storyinfo",
           "group": "navigation@5"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "pivotaly.deliverTask",
+          "when": "viewItem == incompleteTask",
+          "group": "inline"
+        },
+        {
+          "command": "pivotaly.unDeliverTask",
+          "when": "viewItem == completeTask",
+          "group": "inline"
+        },
+        {
+          "command": "pivotaly.resolveBlocker",
+          "when": "viewItem == unresolvedBlocker",
+          "group": "inline"
+        },
+        {
+          "command": "pivotaly.unResolveBlocker",
+          "when": "viewItem == resolvedBlocker",
+          "group": "inline"
         }
       ]
     }
