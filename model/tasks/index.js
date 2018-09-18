@@ -10,12 +10,12 @@ const getAllTasks = (context, storyID) => {
   )
 }
 
-const updateTask = (context, storyID, taskId, postData) => {
+const updateTask = (context, storyID, taskId, updateData) => {
   const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}/tasks/${taskId}`
   const options = setOptions(context, endpoint)
 
   return new Promise(resolve =>
-    pivotalTracker.put(options, postData, (err, req, res, data) => resolve({res, data}))
+    pivotalTracker.put(options, updateData, (err, req, res, data) => resolve({res, data}))
   )
 }
 
