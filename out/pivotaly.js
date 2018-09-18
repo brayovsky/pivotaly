@@ -38,7 +38,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.refreshStory, refreshState),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
-    commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, taskTreeItem => commandRepo.resolveBlocker(taskTreeItem, context))
+    commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, blockerTreeItem => commandRepo.resolveBlocker(blockerTreeItem, context)),
+    commands.registerCommand(commandRepo.commands.storyState.unResolveBlocker, blockerTreeItem => commandRepo.unresolveBlocker(blockerTreeItem, context))
   )
 
   validate("token", context, true).then(() => {
