@@ -68,7 +68,7 @@
         }
       },
       {
-        "command": "pivotaly.refreshStory",
+        "command": "pivotaly.refreshStateView",
         "title": "Reload story",
         "icon": {
           "light": "images/octicons/sync.svg",
@@ -182,7 +182,7 @@
           "group": "navigation@4"
         },
         {
-          "command": "pivotaly.refreshStory",
+          "command": "pivotaly.refreshStateView",
           "when": "view == pivotaly.view.storyinfo",
           "group": "navigation@5"
         }
