@@ -5,6 +5,8 @@
 Pivotaly enables you to keep your work in sync with pivotal tracker without having to switch between the applications. Start, stop, finish and deliver stories that you are working on right from vscode.
 
 ## Features
+- View story details
+    View details of the story you are working on - description, id, name, type, story state, tasks and blockers
 
 - Start stories
 
@@ -18,6 +20,12 @@ Pivotaly enables you to keep your work in sync with pivotal tracker without havi
 - Deliver stories
 
     Mark a story as delivered
+- Deliver and undeliver tasks
+
+    Mark tasks as complete or incomplete
+- Resolve and unresolve blockers
+
+    Mark blockers as resolved or unresolved
 - Link stories
     
     Assign a story to a git branch
@@ -62,7 +70,19 @@ Pivotaly may not track check-outs from bare repositories as expected.
 ## Release Notes
 
 #### [Unreleased]
-- Story details preview
+- Conversations - display and comment on the pivotal tracker story you are working on
+
+## [0.3.0]
+#### Added
+- Story information in the sideview
+- View description markdown from the sideview
+- Ability to mark tasks as complete or incomplete from the sideview
+- Ability to mark blockers as resolved or unresolved from the sideview
+- Ability to start, stop, finish, deliver and link a story from the side view
+
+
+#### Fixed
+- Member statistics not showing clearly in dark mode
 
 ## [0.2.2]
 #### Fixed

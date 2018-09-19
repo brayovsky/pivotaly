@@ -2,7 +2,19 @@
 All notable changes to the "pivotaly" extension will be documented in this file.
 
 #### [Unreleased]
-- Story details preview
+- Conversations - display and comment on the pivotal tracker story you are working on
+
+## [0.3.0]
+#### Added
+- Story information in the sideview
+- View description markdown from the sideview
+- Ability to mark tasks as complete or incomplete from the sideview
+- Ability to mark blockers as resolved or unresolved from the sideview
+- Ability to start, stop, finish, deliver and link a story from the side view
+
+
+#### Fixed
+- Member statistics not showing clearly in dark mode
 
 ## [0.2.2]
 #### Fixed
