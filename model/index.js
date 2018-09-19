@@ -3,8 +3,8 @@ const {getProject} = require("./projects")
 const {updateState} = require("./stories")
 const {getIterations, getIterationCycleTime} = require("./iterations")
 const {getMemberships} = require("./accounts")
-const {getAllTasks} = require('./tasks')
-const {getBlockers} = require('./blockers')
+const {getAllTasks, deliverTask, undeliverTask} = require('./tasks')
+const {getBlockers, resolveBlocker, unresolveBlocker} = require('./blockers')
 
 exports.model = {
   getStory,
@@ -14,5 +14,9 @@ exports.model = {
   getIterations,
   getMemberships,
   getAllTasks,
-  getBlockers
+  getBlockers,
+  deliverTask,
+  undeliverTask,
+  resolveBlocker,
+  unresolveBlocker
 }

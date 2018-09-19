@@ -43,5 +43,6 @@ module.exports = {
   TreeItemCollapsibleState: {
     Collapsed: 1,
     None: 2
-  }
+  },
+  EventEmitter: class {}
 }
