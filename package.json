@@ -227,10 +227,11 @@
     "coveralls": "^3.0.2",
     "git-emit": "0.0.0",
     "lodash": "4.17.10",
+    "moment": "^2.22.2",
     "restify-clients": "2.4.0",
     "rosie": "^2.0.1",
-    "simple-git": "1.96.0",
-    "moment": "^2.22.2"
+    "showdown": "^1.8.6",
+    "simple-git": "1.96.0"
   },
   "devDependencies": {
     "@types/mocha": "^2.2.42",

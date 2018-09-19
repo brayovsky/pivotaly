@@ -9,6 +9,7 @@ const {refreshState} = require("../lib/helpers/pivotaly")
 const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
+const views = require('../lib/views/views')
 
 
 const activate = async context => {
@@ -21,11 +22,10 @@ const activate = async context => {
   const cycleTimeProvider = new CycleTimeDataProvider(context)
   const storyInfoProvider = new StoryInfoDataProvider(context)
 
-  // TODO: mask view ids
   context.subscriptions.push(
     createPTStatusBarItem(),
-    window.registerTreeDataProvider('pivotaly.view.membercycle', cycleTimeProvider),
-    window.registerTreeDataProvider('pivotaly.view.storyinfo', storyInfoProvider),
+    window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
+    window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
@@ -39,7 +39,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, blockerTreeItem => commandRepo.resolveBlocker(blockerTreeItem, context)),
-    commands.registerCommand(commandRepo.commands.storyState.unResolveBlocker, blockerTreeItem => commandRepo.unresolveBlocker(blockerTreeItem, context))
+    commands.registerCommand(commandRepo.commands.storyState.unResolveBlocker, blockerTreeItem => commandRepo.unresolveBlocker(blockerTreeItem, context)),
+    commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description))
   )
 
   validate("token", context, true).then(() => {
