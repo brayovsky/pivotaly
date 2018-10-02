@@ -2,8 +2,13 @@
 All notable changes to the "pivotaly" extension will be documented in this file.
 
 #### [Unreleased]
-- Intuitional flow - Remove need to copy and paste project and story ids
 - Conversations - display and comment on the pivotal tracker story you are working on
+
+## [0.4.0]
+#### Added
+- Intuitional flow 
+    - Pick project id from a list of projects instead of manually inserting a project id
+    - Link a story from a list of stories in the current iteration and backlog instead of manually inserting an id
 
 ## [0.3.1]
 #### Added
