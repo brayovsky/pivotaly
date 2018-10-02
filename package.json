@@ -2,7 +2,7 @@
   "name": "pivotaly",
   "displayName": "pivotaly",
   "description": "Work seamlessly with pivotal tracker right from vs code",
-  "version": "0.3.0",
+  "version": "0.3.1",
   "publisher": "brayovsky",
   "repository": {
     "type": "git",
