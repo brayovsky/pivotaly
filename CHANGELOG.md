@@ -2,7 +2,16 @@
 All notable changes to the "pivotaly" extension will be documented in this file.
 
 #### [Unreleased]
+- Intuitional flow - Remove need to copy and paste project and story ids
 - Conversations - display and comment on the pivotal tracker story you are working on
+
+## [0.3.1]
+#### Added
+- Courtesy message in the sideview when there is no active story
+
+#### Fixed
+- Refresh button in sideview not working when story changes
+
 
 ## [0.3.0]
 #### Added
