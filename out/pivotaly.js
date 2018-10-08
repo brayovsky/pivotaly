@@ -1,6 +1,4 @@
 const {workspace, commands, window} = require("vscode")
-const path = require("path")
-const gitEmit = require("git-emit")
 const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
 const {validate, validateStory} = require("../lib/validation/validate")
 const commandRepo = require("../lib/commands")
@@ -10,6 +8,7 @@ const {common} = require("../lib/commands/common")
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 const views = require('../lib/views/views')
+const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
 
 
 const activate = async context => {
@@ -49,12 +48,11 @@ const activate = async context => {
       else validate("story", context)
     })
   })
-  
+
   if(isARepo){
-    const gitHook = gitEmit(path.join(rootPath, ".git"))
-    gitHook.on("post-checkout", () => {
-      validateStory(context)
-    })
+    unlinkGitEmit(context, rootPath)
+  
+    // Alternative method to check for checkout
   }
 }
 
