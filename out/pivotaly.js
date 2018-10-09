@@ -9,11 +9,12 @@ const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 const views = require('../lib/views/views')
 const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
+const {listenForCheckOut} = require('../lib/helpers/git')
+const GitEvents = require('../lib/events/gitEvents')
 
 
 const activate = async context => {
   await refreshState(context)
-
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
@@ -51,8 +52,11 @@ const activate = async context => {
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
-  
-    // Alternative method to check for checkout
+    const gitEvents = new GitEvents()
+    gitEvents.on('checkout', () => {
+      validateStory(context)
+    })
+    listenForCheckOut(gitEvents)
   }
 }
 
