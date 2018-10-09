@@ -1,19 +1,20 @@
-const {workspace, commands, window} = require("vscode")
-const {createPTStatusBarItem} = require("../lib/pivotaly/createPTStatusBarItem")
-const {validate, validateStory} = require("../lib/validation/validate")
-const commandRepo = require("../lib/commands")
-const isRepo = require("../lib/validation/validators/isRepo")
-const {refreshState} = require("../lib/helpers/pivotaly")
-const {common} = require("../lib/commands/common")
+const {workspace, commands, window} = require('vscode')
+const {createPTStatusBarItem} = require('../lib/pivotaly/createPTStatusBarItem')
+const {validate, validateStory} = require('../lib/validation/validate')
+const commandRepo = require('../lib/commands')
+const isRepo = require('../lib/validation/validators/isRepo')
+const {refreshState} = require('../lib/helpers/pivotaly')
+const {common} = require('../lib/commands/common')
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
 const views = require('../lib/views/views')
 const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
+const {listenForCheckOut} = require('../lib/helpers/git')
+const GitEvents = require('../lib/events/gitEvents')
 
 
 const activate = async context => {
   await refreshState(context)
-
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
@@ -42,17 +43,20 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description))
   )
 
-  validate("token", context, true).then(() => {
-    validate("projectID", context, true).then(() => {
+  validate('token', context, true).then(() => {
+    validate('projectID', context, true).then(() => {
       if (isARepo) validateStory(context)
-      else validate("story", context)
+      else validate('story', context)
     })
   })
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
-  
-    // Alternative method to check for checkout
+    const gitEvents = new GitEvents()
+    gitEvents.on('checkout', () => {
+      validateStory(context)
+    })
+    listenForCheckOut(gitEvents)
   }
 }
 
