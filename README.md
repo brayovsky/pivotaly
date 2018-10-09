@@ -72,6 +72,11 @@ Pivotaly may not track check-outs from bare repositories as expected.
 #### [Unreleased]
 - Conversations - display and comment on the pivotal tracker story you are working on
 
+## [0.4.1]
+#### Fixed
+- Erratic checkout detection
+- Removed git hooks symlink
+
 ## [0.4.0]
 #### Added
 - Intuitional flow 
