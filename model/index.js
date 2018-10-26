@@ -48,6 +48,7 @@ class Model {
   }
 
   _update(method, path, updateData) {
+    method = method.toLowerCase()
     return new Promise(resolve => {
       this._pivotalTrackerClient[method]({path, headers: {
         'X-TrackerToken': this._token
@@ -62,6 +63,11 @@ class Model {
       })
     })
   }
+
+  _appendFields(path, fields) {
+    fields = normaliseFields(fields).join()
+    return fields.length > 0 ? `${path}?fields=${fields}` : path
+  }
 }
 
 class PtProject extends Model {
@@ -72,15 +78,17 @@ class PtProject extends Model {
 
   get _endpoints() {
     return {
-      getProject: fields => {
-        fields = normaliseFields(fields).join()
-        return fields.length > 0 ? `${this._baseProjectPath}?fields=${fields}` : this._baseProjectPath
-      }
+      getProject: fields => this._appendFields(this._baseProjectPath, fields),
+      getAllProjects: fields => this._appendFields(`/services/v5/projects`, fields)
     }
   }
 
   getProject(fields = []) {
     return this._fetch('get', this._endpoints.getProject(fields))
+  }
+
+  getAllProjects(fields = []) {
+    return this._fetch('get', this._endpoints.getAllProjects(fields))
   }
 }
 
