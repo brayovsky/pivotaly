@@ -1,6 +1,5 @@
 const clients = require('restify-clients')
 const {getIterations, getIterationCycleTime} = require("./iterations")
-const {getMemberships} = require("./accounts")
 const {getAllTasks, deliverTask, undeliverTask} = require('./tasks')
 const {getBlockers, resolveBlocker, unresolveBlocker} = require('./blockers')
 const {common} = require('../lib/commands/common')
@@ -9,7 +8,6 @@ const {normaliseFields} = require('../lib/adapters/normaliseFields')
 const model = {
   getIterationCycleTime,
   getIterations,
-  getMemberships,
   getAllTasks,
   getBlockers,
   deliverTask,
