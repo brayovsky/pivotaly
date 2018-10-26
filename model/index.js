@@ -42,6 +42,23 @@ class new_model {
       }},
       (err, req, res, data) => {
         if(err){
+          // TODO: might need to assess type of error first before resolving
+          resolve({res})
+          return
+        }
+        resolve({res, data})
+      })
+    })
+  }
+
+  _update(method, path, updateData) {
+    return new Promise(resolve => {
+      this._pivotalTrackerClient[method]({path, headers: {
+        'X-TrackerToken': this._token
+      }},
+      updateData,
+      (err, req, res, data) => {
+        if(err){
           resolve({res})
           return
         }
@@ -56,20 +73,26 @@ class PtStory extends new_model {
   constructor(context, storyId){
     super(context)
     this.storyId = storyId
+    this._baseStoryPath =  `${this._baseApiPath}/stories/${this.storyId}`
   }
 
   get _endpoints() {
     return {
       getStory: (fields) => {
         fields = normaliseFields(fields).join()
-        const endpoint = `${this._baseApiPath}/stories/${this.storyId}?`
+        const endpoint = `${this._baseStoryPath}?`
         return fields ? endpoint + `fields=${fields}` : endpoint
-      }
+      },
+      updateStory: this._baseStoryPath
     }
   }
 
   getStory(fields = []) {
     return this._fetch('get', this._endpoints.getStory(fields))
+  }
+
+  updateStory(updateBody) {
+    return this._update('put', this._endpoints.updateStory, updateBody)
   }
 }
 
