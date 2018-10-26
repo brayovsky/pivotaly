@@ -1,5 +1,4 @@
 const {Model} = require('../index')
-const {normaliseFields} = require('../../lib/adapters/normaliseFields')
 
 class PtStory extends Model {
   constructor(context, storyId){
@@ -10,10 +9,7 @@ class PtStory extends Model {
 
   get _endpoints() {
     return {
-      getStory: fields => {
-        fields = normaliseFields(fields).join()
-        return fields.length > 0 ? `${this._baseStoryPath}?fields=${fields}` : this._baseStoryPath
-      },
+      getStory: fields => this._appendFields(this._baseStoryPath, fields),
       updateStory: this._baseStoryPath
     }
   }
