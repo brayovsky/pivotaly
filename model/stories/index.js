@@ -1,20 +1,6 @@
 const {pivotalTracker, setOptions} = require("../common")
 const {common} = require("../../lib/commands/common")
 const {normaliseFields} = require("../../lib/adapters/normaliseFields")
-const {getState} = require("../../lib/helpers/pivotaly")
-
-const getStory = (context, storyID, fields = []) => {
-  fields = normaliseFields(fields).join()
-
-  let endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?`
-
-  if(fields) endpoint += `fields=${fields}`
-  const options = setOptions(context, endpoint)
-
-  return new Promise((resolve) => {
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data})) 
-  })
-}
 
 const changeStoryState = (context, storyID, newState) => {
   let update = { current_state: newState }
@@ -25,12 +11,15 @@ const changeStoryState = (context, storyID, newState) => {
     pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
   })
 }
+
+// TODO: update function to require storyid
 const updateState = (context, newState, storyID = null) => {
+  // using getState might cause cyclic dependency complications
+  const currentStory = context.workspaceState.get(common.globals.state, {branch: "", story: ""}).story
   return storyID ? changeStoryState(context, storyID, newState) :
-    changeStoryState(context, getState(context).story, newState)
+    changeStoryState(context, currentStory, newState)
 }
 
 module.exports = {
-  getStory,
-  updateState
+  updateState,
 }
