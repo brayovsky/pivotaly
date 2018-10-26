@@ -5,6 +5,7 @@ const {getMemberships} = require("./accounts")
 const {getAllTasks, deliverTask, undeliverTask} = require('./tasks')
 const {getBlockers, resolveBlocker, unresolveBlocker} = require('./blockers')
 const {common} = require('../lib/commands/common')
+const {normaliseFields} = require('../lib/adapters/normaliseFields')
 
 const model = {
   getProject,
@@ -63,7 +64,28 @@ class Model {
   }
 }
 
+class PtProject extends Model {
+  constructor(context) {
+    super(context)
+    this._baseProjectPath = this._baseApiPath
+  }
+
+  get _endpoints() {
+    return {
+      getProject: fields => {
+        fields = normaliseFields(fields).join()
+        return fields.length > 0 ? `${this._baseProjectPath}?fields=${fields}` : this._baseProjectPath
+      }
+    }
+  }
+
+  getProject(fields = []) {
+    return this._fetch('get', this._endpoints.getProject(fields))
+  }
+}
+
 module.exports = {
   model,
   Model,
+  PtProject
 }
