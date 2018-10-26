@@ -1,32 +1,26 @@
-const {pivotalTracker, setOptions} = require('../common')
-const {common} = require("../../lib/commands/common")
+const {Model} = require('../')
 
-const getBlockers = (context, storyID) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}/blockers`
-  const options = setOptions(context, endpoint)
+class PtBlocker extends Model {
+  constructor(context, storyId, blockerId) {
+    super(context)
+    this._baseBlockerPath = `${this._baseApiPath}/stories/${storyId}/blockers`
+    this.blockerId = blockerId
+  }
 
-  return new Promise(resolve =>
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res, data}))
-  )
+  get endpoints() {
+    return {
+      getBlockers: this._baseBlockerPath,
+      updateBlocker: `${this._baseBlockerPath}/${this.blockerId}`
+    }
+  }
+
+  getBlockers() {
+    return this._fetch('get', this.endpoints.getBlockers)
+  }
+
+  updateBlocker(updateData) {
+    return this._update('put', this.endpoints.updateBlocker, updateData)
+  }
 }
 
-const updateBlocker = (context, storyId, blockerId, updateData) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyId}/blockers/${blockerId}`
-  const options = setOptions(context, endpoint)
-
-  return new Promise(resolve =>
-    pivotalTracker.put(options, updateData, (err, req, res, data) => resolve({res, data}))
-  )
-}
-
-const resolveBlocker = (context, storyID, taskId) =>
-  updateBlocker(context, storyID, taskId, {resolved: true})
-
-const unresolveBlocker  = (context, storyID, taskId) =>
-  updateBlocker(context, storyID, taskId, {resolved: false})
-
-module.exports = {
-  getBlockers,
-  resolveBlocker,
-  unresolveBlocker
-}
+module.exports = PtBlocker
