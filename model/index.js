@@ -1,19 +1,14 @@
 const clients = require('restify-clients')
-const {getStory} = require("./stories")
 const {getProject, getAllProjects} = require("./projects")
-const {updateState} = require("./stories")
 const {getIterations, getIterationCycleTime} = require("./iterations")
 const {getMemberships} = require("./accounts")
 const {getAllTasks, deliverTask, undeliverTask} = require('./tasks')
 const {getBlockers, resolveBlocker, unresolveBlocker} = require('./blockers')
 const {common} = require('../lib/commands/common')
-const {normaliseFields} = require('../lib/adapters/normaliseFields')
 
 const model = {
-  getStory,
   getProject,
   getAllProjects,
-  updateState,
   getIterationCycleTime,
   getIterations,
   getMemberships,
@@ -25,7 +20,7 @@ const model = {
   unresolveBlocker
 }
 
-class new_model {
+class Model {
   constructor(context) {
     this._context = context
     this._pivotalTrackerClient = clients.createJsonClient(common.globals.pivotalBaseUrl)
@@ -68,36 +63,7 @@ class new_model {
   }
 }
 
-
-class PtStory extends new_model {
-  constructor(context, storyId){
-    super(context)
-    this.storyId = storyId
-    this._baseStoryPath =  `${this._baseApiPath}/stories/${this.storyId}`
-  }
-
-  get _endpoints() {
-    return {
-      getStory: (fields) => {
-        fields = normaliseFields(fields).join()
-        const endpoint = `${this._baseStoryPath}?`
-        return fields ? endpoint + `fields=${fields}` : endpoint
-      },
-      updateStory: this._baseStoryPath
-    }
-  }
-
-  getStory(fields = []) {
-    return this._fetch('get', this._endpoints.getStory(fields))
-  }
-
-  updateStory(updateBody) {
-    return this._update('put', this._endpoints.updateStory, updateBody)
-  }
-}
-
 module.exports = {
   model,
-  new_model,
-  PtStory
+  Model,
 }
