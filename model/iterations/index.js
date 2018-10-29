@@ -1,25 +1,25 @@
-const {pivotalTracker, setOptions} = require('../common')
-const {common} = require("../../lib/commands/common")
+const {Model} = require('../')
 
-const getIterations = (context, scope) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/iterations?scope=${scope}`
-  const options = setOptions(context, endpoint)
+class PtIterations extends Model{
+  constructor(context) {
+    super(context)
+    this._baseIterationsPath = `${this._baseApiPath}/iterations`
+  }
 
-  return new Promise(resolve =>
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res, data}))
-  )
+  get _endpoints() {
+    return {
+      getIterations: scope => `${this._baseIterationsPath}?scope=${scope}`,
+      getIterationCycleTime: iterationNumber => `${this._baseIterationsPath}/${iterationNumber}/analytics/cycle_time_details`
+    }
+  }
+
+  getIterations(scope = '') {
+    return this._fetch('get', this._endpoints.getIterations(scope))
+  }
+
+  getIterationCycleTime(iterationNumber) {
+    return this._fetch('get', this._endpoints.getIterationCycleTime(iterationNumber))
+  }
 }
 
-const getIterationCycleTime = (context, iterationNumber = 1) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/iterations/${iterationNumber}/analytics/cycle_time_details`
-  const options = setOptions(context, endpoint)
-
-  return new Promise(resolve =>
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res, data}))
-  )
-}
-
-module.exports = {
-  getIterations,
-  getIterationCycleTime
-}
+module.exports = PtIterations
