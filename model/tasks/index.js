@@ -10,6 +10,7 @@ class PtTask extends PtStory {
 
   get _taskEndpoints() {
     return {
+      ...this._endpoints,
       getAllTasks: this._baseTasksPath,
       updateTask: `${this._baseTasksPath}/${this.taskId}`
     }
