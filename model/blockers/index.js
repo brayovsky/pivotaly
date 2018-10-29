@@ -1,25 +1,26 @@
-const Model = require('../')
+const PtStory = require('../stories')
 
-class PtBlocker extends Model {
+class PtBlocker extends PtStory {
   constructor(context, storyId, blockerId) {
-    super(context)
-    this._baseBlockerPath = `${this._baseApiPath}/stories/${storyId}/blockers`
+    super(context, storyId)
+    this._baseBlockerPath = `${this._baseStoryPath}/blockers`
     this.blockerId = blockerId
   }
 
-  get endpoints() {
+  get _blockerEndpoints() {
     return {
+      ...this._endpoints,
       getBlockers: this._baseBlockerPath,
       updateBlocker: `${this._baseBlockerPath}/${this.blockerId}`
     }
   }
 
   getBlockers() {
-    return this._fetch('get', this.endpoints.getBlockers)
+    return this._fetch('get', this._blockerEndpoints.getBlockers)
   }
 
   updateBlocker(updateData) {
-    return this._update('put', this.endpoints.updateBlocker, updateData)
+    return this._update('put', this._blockerEndpoints.updateBlocker, updateData)
   }
 }
 
