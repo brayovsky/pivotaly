@@ -1,4 +1,5 @@
-const {Model} = require('../')
+const Model = require('../')
+
 class PtProject extends Model {
   constructor(context) {
     super(context)

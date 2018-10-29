@@ -1,4 +1,4 @@
-const {Model} = require('../index')
+const Model = require('../index')
 
 class PtStory extends Model {
   constructor(context, storyId){

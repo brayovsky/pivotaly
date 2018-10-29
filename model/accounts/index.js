@@ -1,4 +1,4 @@
-const {Model} = require('../')
+const Model = require('../')
 
 class PtAccounts extends Model {
   constructor(context) {

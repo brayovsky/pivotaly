@@ -1,4 +1,4 @@
-const {Model} = require('../')
+const Model = require('../')
 
 class PtTask extends Model {
   constructor(context, storyId, taskId = '') {

@@ -1,4 +1,4 @@
-const {Model} = require('../')
+const Model = require('../')
 
 class PtBlocker extends Model {
   constructor(context, storyId, blockerId) {

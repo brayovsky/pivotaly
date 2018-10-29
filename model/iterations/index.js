@@ -1,4 +1,4 @@
-const {Model} = require('../')
+const Model = require('../')
 
 class PtIterations extends Model{
   constructor(context) {
