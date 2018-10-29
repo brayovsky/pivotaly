@@ -1,13 +1,6 @@
 const clients = require('restify-clients')
-const {getAllTasks, deliverTask, undeliverTask} = require('./tasks')
 const {common} = require('../lib/commands/common')
 const {normaliseFields} = require('../lib/adapters/normaliseFields')
-
-const model = {
-  getAllTasks,
-  deliverTask,
-  undeliverTask,
-}
 
 class Model {
   constructor(context) {
@@ -59,6 +52,5 @@ class Model {
 }
 
 module.exports = {
-  model,
   Model
 }
