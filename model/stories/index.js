@@ -1,36 +1,26 @@
-const {pivotalTracker, setOptions} = require("../common")
-const {common} = require("../../lib/commands/common")
-const {normaliseFields} = require("../../lib/adapters/normaliseFields")
-const {getState} = require("../../lib/helpers/pivotaly")
+const Model = require('../index')
 
-const getStory = (context, storyID, fields = []) => {
-  fields = normaliseFields(fields).join()
+class PtStory extends Model {
+  constructor(context, storyId){
+    super(context)
+    this.storyId = storyId
+    this._baseStoryPath =  `${this._baseApiPath}/stories/${this.storyId}`
+  }
 
-  let endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}?`
+  get _endpoints() {
+    return {
+      getStory: fields => this._appendFields(this._baseStoryPath, fields),
+      updateStory: this._baseStoryPath
+    }
+  }
 
-  if(fields) endpoint += `fields=${fields}`
-  const options = setOptions(context, endpoint)
+  getStory(fields = []) {
+    return this._fetch('get', this._endpoints.getStory(fields))
+  }
 
-  return new Promise((resolve) => {
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data})) 
-  })
+  updateStory(updateBody) {
+    return this._update('put', this._endpoints.updateStory, updateBody)
+  }
 }
 
-const changeStoryState = (context, storyID, newState) => {
-  let update = { current_state: newState }
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}`
-  const options = setOptions(context, endpoint)
-
-  return new Promise((resolve) => {
-    pivotalTracker.put(options, update, (err, req, res, data) => resolve({res, data}))
-  })
-}
-const updateState = (context, newState, storyID = null) => {
-  return storyID ? changeStoryState(context, storyID, newState) :
-    changeStoryState(context, getState(context).story, newState)
-}
-
-module.exports = {
-  getStory,
-  updateState
-}
+module.exports = PtStory

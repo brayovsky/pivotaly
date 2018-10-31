@@ -1,15 +1,19 @@
-const {pivotalTracker, setOptions} = require('../common')
-const {common} = require("../../lib/commands/common")
+const Model = require('../')
 
-const getMemberships = context => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/memberships`
-  const options = setOptions(context, endpoint)
+class PtAccounts extends Model {
+  constructor(context) {
+    super(context)
+  }
 
-  return new Promise(resolve =>
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res, data}))
-  )
+  get endpoints() {
+    return {
+      getMemberships: `${this._baseApiPath}/memberships`
+    }
+  }
+
+  getMemberships() {
+    return this._fetch('get', this.endpoints.getMemberships)
+  }
 }
 
-module.exports = {
-  getMemberships
-}
+module.exports = PtAccounts
