@@ -1,27 +1,25 @@
-const {pivotalTracker, setOptions} = require("../common")
-const {common} = require("../../lib/commands/common")
-const {normaliseFields} = require("../../lib/adapters/normaliseFields")
+const Model = require('../')
 
+class PtProject extends Model {
+  constructor(context) {
+    super(context)
+    this._baseProjectPath = this._baseApiPath
+  }
 
-const getProject = (context, fields = []) => {
-  fields = normaliseFields(fields)
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}?fields=${fields.join()}`
-  const options = setOptions(context, endpoint)
+  get _endpoints() {
+    return {
+      getProject: fields => this._appendFields(this._baseProjectPath, fields),
+      getAllProjects: fields => this._appendFields(`/services/v5/projects`, fields)
+    }
+  }
 
-  return new Promise((resolve) => {
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data}))
-  })
+  getProject(fields = []) {
+    return this._fetch('get', this._endpoints.getProject(fields))
+  }
+
+  getAllProjects(fields = []) {
+    return this._fetch('get', this._endpoints.getAllProjects(fields))
+  }
 }
 
-const getAllProjects = (context, fields = []) => {
-  const endpoint = `/services/v5/projects?fields=${fields.join()}`
-  const options = setOptions(context, endpoint)
-
-  return new Promise((resolve) => {
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res,data}))
-  })
-}
-module.exports = {
-  getProject,
-  getAllProjects
-}
+module.exports = PtProject

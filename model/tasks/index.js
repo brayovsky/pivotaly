@@ -1,32 +1,28 @@
-const {pivotalTracker, setOptions} = require('../common')
-const {common} = require('../../lib/commands/common')
+const PtStory = require('../stories')
 
-const getAllTasks = (context, storyID) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}/tasks`
-  const options = setOptions(context, endpoint)
+class PtTask extends PtStory {
+  constructor(context, storyId, taskId = '') {
+    super(context, storyId)
+    this.storyId = storyId
+    this.taskId = taskId
+    this._baseTasksPath = `${this._baseStoryPath}/tasks`
+  }
 
-  return new Promise(resolve =>
-    pivotalTracker.get(options, (err, req, res, data) => resolve({res, data}))
-  )
+  get _taskEndpoints() {
+    return {
+      ...this._endpoints,
+      getAllTasks: this._baseTasksPath,
+      updateTask: `${this._baseTasksPath}/${this.taskId}`
+    }
+  }
+
+  getAllTasks() {
+    return this._fetch('get', this._taskEndpoints.getAllTasks)
+  }
+
+  updateTask(updateData) {
+    return this._update('put', this._taskEndpoints.updateTask, updateData)
+  }
 }
 
-const updateTask = (context, storyID, taskId, updateData) => {
-  const endpoint = `/services/v5/projects/${context.workspaceState.get(common.globals.projectID)}/stories/${storyID}/tasks/${taskId}`
-  const options = setOptions(context, endpoint)
-
-  return new Promise(resolve =>
-    pivotalTracker.put(options, updateData, (err, req, res, data) => resolve({res, data}))
-  )
-}
-
-const deliverTask = (context, storyID, taskId) =>
-  updateTask(context, storyID, taskId, {complete: true})
-
-const undeliverTask  = (context, storyID, taskId) =>
-  updateTask(context, storyID, taskId, {complete: false})
-
-module.exports = {
-  getAllTasks,
-  deliverTask,
-  undeliverTask
-}
+module.exports = PtTask
