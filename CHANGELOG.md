@@ -4,6 +4,15 @@ All notable changes to the "pivotaly" extension will be documented in this file.
 #### [Unreleased]
 - Conversations - display and comment on the pivotal tracker story you are working on
 
+## [0.4.2]
+#### Added
+- Option to mark a workspace as not a pivotal tracker project
+
+## [0.4.1]
+#### Fixed
+- Erratic checkout detection
+- Removed git hooks symlink
+
 ## [0.4.0]
 #### Added
 - Intuitional flow 
