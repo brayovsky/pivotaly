@@ -72,6 +72,10 @@ Pivotaly may not track check-outs from bare repositories as expected.
 #### [Unreleased]
 - Conversations - display and comment on the pivotal tracker story you are working on
 
+## [0.4.2]
+#### Added
+- Option to mark a workspace as not a pivotal tracker project
+
 ## [0.4.1]
 #### Fixed
 - Erratic checkout detection
