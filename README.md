@@ -72,6 +72,11 @@ Pivotaly may not track check-outs from bare repositories as expected.
 #### [Unreleased]
 - Conversations - display and comment on the pivotal tracker story you are working on
 
+## [0.4.3]
+#### Fixed
+- Workspaces marked as not pivotal tracker projects still show pivotaly controls after reloading
+- Removed `iterations.forEach is not a function` error message when cycle time data is unavailable
+
 ## [0.4.2]
 #### Added
 - Option to mark a workspace as not a pivotal tracker project
