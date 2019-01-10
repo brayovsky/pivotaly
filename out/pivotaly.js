@@ -19,7 +19,7 @@ const activate = async context => {
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
-  if(context.workspaceState.get(common.globals.notPTProject) === false) return;
+  if(context.workspaceState.get(common.globals.notPTProject) === true) return;
 
   const cycleTimeProvider = new CycleTimeDataProvider(context)
   const storyInfoProvider = new StoryInfoDataProvider(context)
