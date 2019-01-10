@@ -19,11 +19,13 @@ const activate = async context => {
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
+  if(context.workspaceState.get(common.globals.notPTProject) === false) return;
+
   const cycleTimeProvider = new CycleTimeDataProvider(context)
   const storyInfoProvider = new StoryInfoDataProvider(context)
-
+  const statusBarItem = createPTStatusBarItem()
   context.subscriptions.push(
-    createPTStatusBarItem(),
+    statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
     window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
@@ -33,7 +35,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
+    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, statusBarItem)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
