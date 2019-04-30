@@ -4,6 +4,5 @@ node_modules
 test/**
 .gitignore
 jsconfig.json
-vsc-extension-quickstart.md
 .eslintrc.json
 dist
