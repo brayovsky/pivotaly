@@ -151,6 +151,10 @@
         {
           "id": "pivotaly.view.storyinfo",
           "name": "Story Information"
+        },
+        {
+          "id": "pivotaly.view.controlPanel",
+          "name": "Control Panel"
         }
       ]
     },
