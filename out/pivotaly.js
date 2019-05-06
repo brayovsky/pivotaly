@@ -3,7 +3,7 @@ const {createPTStatusBarItem} = require('../lib/pivotaly/createPTStatusBarItem')
 const {validate, validateStory} = require('../lib/validation/validate')
 const commandRepo = require('../lib/commands')
 const isRepo = require('../lib/validation/validators/isRepo')
-const {refreshState, getState} = require('../lib/helpers/pivotaly')
+const {refreshState, getState} = require('../lib/helpers/state')
 const {common} = require('../lib/commands/common')
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
@@ -54,9 +54,8 @@ const activate = async context => {
     validate('projectID', context, true).then(_didProjectValidationSucceed => {
       if (isARepo) validateStory(context)
       else validate('story', context).then(didSucceed => {}, didFail => {})
-    }, _didProjectValidationSucceed => window.showErrorMessage('Invalid project id detected.') )
-  }, _didValidationSucceed => window.showErrorMessage('Invalid token detected.')
-  )
+    }, _didProjectValidationSucceed => {})
+  }, _didValidationSucceed => {})
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
