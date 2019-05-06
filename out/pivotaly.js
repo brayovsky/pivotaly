@@ -50,7 +50,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description))
   )
 
-  validate('token', context, true).then(_didValidationSucceed => {
+  validate('token', context).then(_didValidationSucceed => {
     validate('projectID', context, true).then(_didProjectValidationSucceed => {
       if (isARepo) validateStory(context)
       else validate('story', context).then(didSucceed => {}, didFail => {})
