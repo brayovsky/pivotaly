@@ -1,6 +1,7 @@
 const clients = require('restify-clients')
 const {common} = require('../lib/commands/common')
 const {normaliseFields} = require('../lib/adapters/normaliseFields')
+const rebound = require('../lib/validation/rebounds')
 
 class Model {
   constructor(context) {
@@ -20,6 +21,7 @@ class Model {
       (err, req, res, data) => {
         if(err){
           if(err.stausCode === 403 && err.restCode === 'invalid_authentication') {
+            rebound('token')
             return reject(err.restCode)
           }
         }
