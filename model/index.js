@@ -20,8 +20,8 @@ class Model {
       }},
       (err, req, res, data) => {
         if(err){
-          if(err.stausCode === 403 && err.restCode === 'invalid_authentication')
-            rebound('token')
+          if(err.statusCode === 403 && err.restCode === 'invalid_authentication')
+            rebound('token', this._context)
           return reject(err.restCode)
         }
         resolve({res, data})
