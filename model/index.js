@@ -13,15 +13,15 @@ class Model {
 
   _fetch(method, path) {
     method = method.toLowerCase()
-    return new Promise(resolve => {
+    return new Promise((resolve, reject) => {
       this._pivotalTrackerClient[method]({path, headers: {
         'X-TrackerToken': this._token
       }},
       (err, req, res, data) => {
         if(err){
-          // TODO: might need to assess type of error first before resolving
-          resolve({res})
-          return
+          if(err.stausCode === 403 && err.restCode === 'invalid_authentication') {
+            return reject(err.restCode)
+          }
         }
         resolve({res, data})
       })
