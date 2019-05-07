@@ -3,7 +3,7 @@ const {createPTStatusBarItem} = require('../lib/pivotaly/createPTStatusBarItem')
 const {validate, validateStory} = require('../lib/validation/validate')
 const commandRepo = require('../lib/commands')
 const isRepo = require('../lib/validation/validators/isRepo')
-const {refreshState, getState} = require('../lib/helpers/state')
+const {refreshState} = require('../lib/helpers/state')
 const {common} = require('../lib/commands/common')
 const CycleTimeDataProvider = require('../lib/views/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfoDataProvider')
@@ -39,7 +39,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
     commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
+    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context, statusBarItem)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, statusBarItem)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
@@ -53,7 +53,7 @@ const activate = async context => {
   validate('token', context).then(_didValidationSucceed => {
     validate('projectID', context, true).then(_didProjectValidationSucceed => {
       if (isARepo) validateStory(context)
-      else validate('story', context).then(didSucceed => {}, didFail => {})
+      else validate('story', context, true).then(didSucceed => {}, didFail => {})
     }, _didProjectValidationSucceed => {})
   }, _didValidationSucceed => {})
 
