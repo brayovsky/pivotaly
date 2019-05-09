@@ -20,9 +20,10 @@ class Model {
       }},
       (err, req, res, data) => {
         if(err){
-          if(err.statusCode === 403 && err.restCode === 'invalid_authentication')
+          if(err.statusCode === 403 && err.restCode === 'invalid_authentication') {
             requestToken('Invalid token detected', [this._context])
-          return reject(err.restCode)
+            return reject(err.restCode)
+          }
         }
         resolve({res, data})
       })
