@@ -3,8 +3,9 @@ const {createPTStatusBarItem} = require('../lib/pivotaly/createPTStatusBarItem')
 const {validate, validateStory} = require('../lib/validation/validate')
 const commandRepo = require('../lib/commands')
 const isRepo = require('../lib/validation/validators/isRepo')
-const {refreshState} = require('../lib/helpers/pivotaly')
+const {refreshState} = require('../lib/helpers/state')
 const {common} = require('../lib/commands/common')
+const ControlPanelDataProvider = require('../lib/views/controlPanel/cpDataProvider')
 const CycleTimeDataProvider = require('../lib/views/memberCycletime/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfo/storyInfoDataProvider')
 const views = require('../lib/views/views')
@@ -21,13 +22,17 @@ const activate = async context => {
 
   if(context.workspaceState.get(common.globals.notPTProject) === true) return;
 
+  const statusBarItem = createPTStatusBarItem()
+
   const cycleTimeProvider = new CycleTimeDataProvider(context)
   const storyInfoProvider = new StoryInfoDataProvider(context)
-  const statusBarItem = createPTStatusBarItem()
+  const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
+
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
     window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
+    window.registerTreeDataProvider(views.controlPanel, cpProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
@@ -45,12 +50,12 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description))
   )
 
-  validate('token', context, true).then(() => {
-    validate('projectID', context, true).then(() => {
+  validate('token', context).then(_didValidationSucceed => {
+    validate('projectID', context, true).then(_didProjectValidationSucceed => {
       if (isARepo) validateStory(context)
-      else validate('story', context)
-    })
-  })
+      else validate('story', context, true).then(didSucceed => {}, didFail => {})
+    }, _didProjectValidationSucceed => {})
+  }, _didValidationSucceed => {})
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)

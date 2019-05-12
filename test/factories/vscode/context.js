@@ -22,3 +22,4 @@ module.exports = new Factory()
       update: function(stateKey, newState){ return new Promise(resolve => resolve(newState))},
     }
   ]))
+  .attr('subscriptions', [])
