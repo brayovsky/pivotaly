@@ -69,8 +69,17 @@ Pivotaly may not track check-outs from bare repositories as expected.
 
 ## Release Notes
 
-#### [Unreleased]
-- Conversations - display and comment on the pivotal tracker story you are working on
+## [0.5.0]
+#### Added
+- Editing of already saved Pivotal Tracker token
+- Editing of current project
+- Dynamic checking of validity of Pivotal Tracker token
+- Total number of points per member on member cycletime card
+- Reduced download size
+
+#### Fixed
+- Need to reload vscode after marking a workspace as not a Pivotal Tracker project
+- Erratic messages in member cycle time card if a story was never started
 
 ## [0.4.3]
 #### Fixed
