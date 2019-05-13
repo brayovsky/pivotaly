@@ -24,10 +24,11 @@ const activate = async context => {
 
   const statusBarItem = createPTStatusBarItem()
 
-  const cycleTimeProvider = new CycleTimeDataProvider(context)
+  const cycleTimeProvider = new CycleTimeDataProvider(context, {length: 6, unit: 'months'})
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
 
+  // TODO: Use call back function without wrapping it in another anonymous function
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
