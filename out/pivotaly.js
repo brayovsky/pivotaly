@@ -24,7 +24,7 @@ const activate = async context => {
 
   const statusBarItem = createPTStatusBarItem()
 
-  const cycleTimeProvider = new CycleTimeDataProvider(context, {length: 6, unit: 'months'})
+  const cycleTimeProvider = new CycleTimeDataProvider(context, {length: 6, unit: 'months'}, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
 
