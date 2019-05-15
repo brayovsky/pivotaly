@@ -24,7 +24,7 @@ const activate = async context => {
 
   const statusBarItem = createPTStatusBarItem()
 
-  const cycleTimeProvider = new CycleTimeDataProvider(context, {length: 6, unit: 'months'})
+  const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
 
@@ -42,7 +42,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
-    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, scope, iteration_number) =>  commandRepo.showStats(context, scope, iteration_number)),
+    commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
