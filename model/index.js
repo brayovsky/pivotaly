@@ -1,4 +1,5 @@
 const clients = require('restify-clients')
+const _ = require('lodash')
 const {common} = require('../lib/commands/common')
 const {normaliseFields} = require('../lib/adapters/normaliseFields')
 const requestToken = require('../lib/procedures/requestToken')
@@ -51,6 +52,22 @@ class Model {
   _appendFields(path, fields) {
     fields = normaliseFields(fields).join()
     return fields.length > 0 ? `${path}?fields=${fields}` : path
+  }
+
+  /**
+   * Adds parameters to a url string
+   * @param {string} path url path
+   * @param {object} params object with keys as param fields and values as their respective values
+   * @returns {string} url appended with various params
+   */
+  _addParams(path, params) {
+    if(path[path.length - 1] === '/') path = path.substring(0, path.length - 1)
+    let paramString = ''
+    _.forEach(params, (val, key) => {
+      paramString += `${key}=${val}&`
+    })
+    const finalPath = `${path}?${paramString}`
+    return paramString.length > 0 ? finalPath.substring(0, finalPath.length - 1) : path
   }
 }
 

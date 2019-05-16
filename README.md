@@ -69,6 +69,14 @@ Pivotaly may not track check-outs from bare repositories as expected.
 
 ## Release Notes
 
+## [0.5.2]
+#### Fixed
+- Cycle time details of some iterations not showing up
+
+## [0.5.1]
+#### Fixed
+- Installation failures of the extension
+
 ## [0.5.0]
 #### Added
 - Editing of already saved Pivotal Tracker token

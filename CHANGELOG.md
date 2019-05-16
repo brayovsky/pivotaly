@@ -4,6 +4,14 @@ All notable changes to the "pivotaly" extension will be documented in this file.
 #### [Unreleased]
 - Conversations - display and comment on the pivotal tracker story you are working on
 
+## [0.5.2]
+#### Fixed
+- Cycle time details of some iterations not showing up
+
+## [0.5.1]
+#### Fixed
+- Installation failures of the extension
+
 ## [0.5.0]
 #### Added
 - Editing of already saved Pivotal Tracker token
