@@ -26,9 +26,8 @@ const activate = async context => {
 
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
-  const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
+  const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider)
 
-  // TODO: Use call back function without wrapping it in another anonymous function
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
@@ -40,10 +39,11 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
     commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
+    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.storyState.refreshMemberCycleView, () => commandRepo.refreshMemberCycleView(cycleTimeProvider)),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, blockerTreeItem => commandRepo.resolveBlocker(blockerTreeItem, context)),
