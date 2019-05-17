@@ -28,7 +28,6 @@ const activate = async context => {
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
 
-  // TODO: Use call back function without wrapping it in another anonymous function
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
