@@ -62,6 +62,7 @@ const activate = async context => {
     unlinkGitEmit(context, rootPath)
     const gitEvents = new GitEvents()
     gitEvents.on('checkout', () => {
+      if(context.workspaceState.get(common.globals.notPTProject) === true) return
       validateStory(context, storyInfoProvider)
     })
     listenForCheckOut(gitEvents)
