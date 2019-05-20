@@ -37,8 +37,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
-    commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
-    commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
+    commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
@@ -53,7 +53,7 @@ const activate = async context => {
 
   validate('token', context).then(_didValidationSucceed => {
     validate('projectID', context, true).then(_didProjectValidationSucceed => {
-      if (isARepo) validateStory(context)
+      if (isARepo) validateStory(context, storyInfoProvider)
       else validate('story', context, true).then(didSucceed => {}, didFail => {})
     }, _didProjectValidationSucceed => {})
   }, _didValidationSucceed => {})
@@ -62,7 +62,7 @@ const activate = async context => {
     unlinkGitEmit(context, rootPath)
     const gitEvents = new GitEvents()
     gitEvents.on('checkout', () => {
-      validateStory(context)
+      validateStory(context, storyInfoProvider)
     })
     listenForCheckOut(gitEvents)
   }
