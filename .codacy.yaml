@@ -1,2 +1,4 @@
 exclude_paths:
   - '**.spec.js'
+  - '__mocks__/**'
+  - 'test/**'

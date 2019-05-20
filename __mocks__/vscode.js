@@ -44,5 +44,8 @@ module.exports = {
     Collapsed: 1,
     None: 2
   },
-  EventEmitter: class {}
+  EventEmitter: class {},
+  commands: {
+    executeCommand: jest.fn()
+  }
 }
