@@ -15,6 +15,8 @@ const GitEvents = require('../lib/events/gitEvents')
 
 
 const activate = async context => {
+  if(workspace.workspaceFolders === undefined) return
+
   await refreshState(context)
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
@@ -26,9 +28,8 @@ const activate = async context => {
 
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
-  const cpProvider = new ControlPanelDataProvider(context, statusBarItem)
+  const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider)
 
-  // TODO: Use call back function without wrapping it in another anonymous function
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
@@ -38,12 +39,13 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
-    commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context)),
-    commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
-    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
+    commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.storyState.refreshMemberCycleView, () => commandRepo.refreshMemberCycleView(cycleTimeProvider)),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, blockerTreeItem => commandRepo.resolveBlocker(blockerTreeItem, context)),
@@ -53,7 +55,7 @@ const activate = async context => {
 
   validate('token', context).then(_didValidationSucceed => {
     validate('projectID', context, true).then(_didProjectValidationSucceed => {
-      if (isARepo) validateStory(context)
+      if (isARepo) validateStory(context, storyInfoProvider)
       else validate('story', context, true).then(didSucceed => {}, didFail => {})
     }, _didProjectValidationSucceed => {})
   }, _didValidationSucceed => {})
@@ -62,7 +64,8 @@ const activate = async context => {
     unlinkGitEmit(context, rootPath)
     const gitEvents = new GitEvents()
     gitEvents.on('checkout', () => {
-      validateStory(context)
+      if(context.workspaceState.get(common.globals.notPTProject) === true) return
+      validateStory(context, storyInfoProvider)
     })
     listenForCheckOut(gitEvents)
   }

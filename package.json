@@ -2,7 +2,7 @@
   "name": "pivotaly",
   "displayName": "pivotaly",
   "description": "Work seamlessly with pivotal tracker right from vs code",
-  "version": "0.5.2",
+  "version": "0.5.3",
   "publisher": "brayovsky",
   "repository": {
     "type": "git",
@@ -106,6 +106,14 @@
           "light": "images/other/check-square-regular.svg",
           "dark": "images/other/check-square-regular-light.svg"
         }
+      },
+      {
+        "command": "pivotaly.refreshMemberCycleView",
+        "title": "Reload Member Cycle",
+        "icon": {
+          "light": "images/octicons/sync.svg",
+          "dark": "images/octicons/sync-light.svg"
+        }
       }
     ],
     "configuration": [
@@ -189,6 +197,11 @@
           "command": "pivotaly.refreshStateView",
           "when": "view == pivotaly.view.storyinfo",
           "group": "navigation@5"
+        },
+        {
+          "command": "pivotaly.refreshMemberCycleView",
+          "when": "view == pivotaly.view.membercycle",
+          "group": "navigation@1"
         }
       ],
       "view/item/context": [
