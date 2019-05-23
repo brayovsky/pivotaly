@@ -15,6 +15,8 @@ const GitEvents = require('../lib/events/gitEvents')
 
 
 const activate = async context => {
+  if(workspace.workspaceFolders === undefined) return
+
   await refreshState(context)
   const rootPath = (workspace.workspaceFolders && workspace.workspaceFolders[0].uri.fsPath) || workspace.rootPath
   const isARepo = rootPath ? await isRepo(rootPath) : false
