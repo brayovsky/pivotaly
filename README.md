@@ -69,6 +69,16 @@ Pivotaly may not track check-outs from bare repositories as expected.
 
 ## Release Notes
 
+## [0.5.3]
+#### Added
+- Refresh button for member cycle time
+- Automatic refreshing of story details view once story is changed
+- Automatic refreshing of member cycle time and story details view once project id is changed
+
+#### Fixed
+- Error showing up after marking a workspace as not a pivotal tracker project and checking out to another branch
+- Error showing up after opening vs code without a workspace open
+
 ## [0.5.2]
 #### Fixed
 - Cycle time details of some iterations not showing up
