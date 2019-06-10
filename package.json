@@ -92,6 +92,14 @@
         }
       },
       {
+        "command": "pivotaly.addBlocker",
+        "title": "Add Blocker",
+        "icon": {
+          "light": "images/octicons/plus-light.svg",
+          "dark": "images/octicons/plus.svg"
+        }
+      },
+      {
         "command": "pivotaly.resolveBlocker",
         "title": "Resolve Blocker",
         "icon": {
