@@ -95,8 +95,8 @@
         "command": "pivotaly.addBlocker",
         "title": "Add Blocker",
         "icon": {
-          "light": "images/octicons/plus-light.svg",
-          "dark": "images/octicons/plus.svg"
+          "dark": "images/octicons/plus-light.svg",
+          "light": "images/octicons/plus.svg"
         }
       },
       {
@@ -231,6 +231,11 @@
         {
           "command": "pivotaly.unResolveBlocker",
           "when": "viewItem == resolvedBlocker",
+          "group": "inline"
+        },
+        {
+          "command": "pivotaly.addBlocker",
+          "when": "viewItem == blockerTitle",
           "group": "inline"
         }
       ]
