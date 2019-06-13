@@ -76,6 +76,14 @@
         }
       },
       {
+        "command": "pivotaly.addTask",
+        "title": "Add Task",
+        "icon": {
+          "dark": "images/octicons/plus-light.svg",
+          "light": "images/octicons/plus.svg"
+        }
+      },
+      {
         "command": "pivotaly.deliverTask",
         "title": "Deliver Task",
         "icon": {
@@ -236,6 +244,11 @@
         {
           "command": "pivotaly.addBlocker",
           "when": "viewItem == blockerTitle",
+          "group": "inline"
+        },
+        {
+          "command": "pivotaly.addTask",
+          "when": "viewItem == taskTitle",
           "group": "inline"
         }
       ]

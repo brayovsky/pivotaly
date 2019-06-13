@@ -11,6 +11,7 @@ class PtTask extends PtStory {
   get _taskEndpoints() {
     return {
       ...this._endpoints,
+      createTask: this._baseTasksPath,
       getAllTasks: this._baseTasksPath,
       updateTask: `${this._baseTasksPath}/${this.taskId}`
     }
@@ -22,6 +23,14 @@ class PtTask extends PtStory {
 
   updateTask(updateData) {
     return this._update('put', this._taskEndpoints.updateTask, updateData)
+  }
+
+  createTask(description) {
+    return this._update('post', this._taskEndpoints.createTask, {
+      description,
+      story_id: this.storyId,
+      project_id: this._projectId
+    })
   }
 }
 

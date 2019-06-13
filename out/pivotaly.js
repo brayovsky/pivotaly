@@ -46,6 +46,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.storyState.refreshMemberCycleView, () => commandRepo.refreshMemberCycleView(cycleTimeProvider)),
+    commands.registerCommand(commandRepo.commands.storyState.addTask, taskTreeItem => commandRepo.addTask(taskTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverTask, taskTreeeItem => commandRepo.deliverTask(taskTreeeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unDeliverTask, taskTreeItem => commandRepo.undeliverTask(taskTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.addBlocker, blockerTreeItem => commandRepo.addBlocker(blockerTreeItem, context)),
