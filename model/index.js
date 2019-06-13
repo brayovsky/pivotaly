@@ -8,8 +8,8 @@ class Model {
   constructor(context) {
     this._context = context
     this._pivotalTrackerClient = clients.createJsonClient(common.globals.pivotalBaseUrl)
-    const projectId = context.workspaceState.get(common.globals.projectID)
-    this._baseApiPath = `${common.globals.pivotalApiPrefix}/projects/${projectId}`
+    this._projectId = context.workspaceState.get(common.globals.projectID)
+    this._baseApiPath = `${common.globals.pivotalApiPrefix}/projects/${this._projectId}`
     this._token = context.globalState.get(common.globals.APItoken)
   }
 
