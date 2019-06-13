@@ -245,6 +245,11 @@
           "command": "pivotaly.addBlocker",
           "when": "viewItem == blockerTitle",
           "group": "inline"
+        },
+        {
+          "command": "pivotaly.addTask",
+          "when": "viewItem == taskTitle",
+          "group": "inline"
         }
       ]
     }
