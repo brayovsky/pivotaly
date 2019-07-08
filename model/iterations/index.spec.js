@@ -137,13 +137,13 @@ describe('#iterations', () => {
           stories: [
             {
               name: 'Create article',
-              id: 10,
+              id: 9,
               state: 'finished'
             }
           ]
         }
       ])
-      expect(compressedIterations).toMatchObject(['Finish social login - 5', 'Edit article - 6', 'Create article - 10'])
+      expect(compressedIterations).toMatchObject(['Finish social login - 5', 'Edit article - 6', 'Create article - 9'])
     })
   })
 })
