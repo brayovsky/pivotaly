@@ -20,14 +20,14 @@ class PtIterations extends Model{
     if(!scope.includes('done')) return this.getIterations({scope})
     const iterations = await this._fetch('get', this._endpoints.getDoneIterations(scope, maxIterations))
     if(!compress) return iterations
-    return this.compressIterations(iterations.data)
+    return PtIterations.compressIterations(iterations.data)
   }
 
   async getIterations(params, compress = false) {
     if(params.scope && !['current', 'backlog', 'current_backlog'].includes(params.scope)) throw new Error('Invalid scope')
     const iterations = await this._fetch('get', this._endpoints.getIterations(params))
     if(!compress) return iterations
-    return this.compressIterations(iterations.data)
+    return PtIterations.compressIterations(iterations.data)
   }
 
   getIterationCycleTime(iterationNumber) {
@@ -40,7 +40,7 @@ class PtIterations extends Model{
    * @param {array} iterations all iterations returned from _fetch
    * @returns {array} compressed iterations
    */
-  compressIterations(iterations) {
+  static compressIterations(iterations) {
     const scopeStories = []
     iterations.forEach(iteration => Array.prototype.push.apply(scopeStories, iteration.stories))
     return generateQuickPickArray(scopeStories)
