@@ -47,8 +47,8 @@ describe('#iterations', () => {
 
     afterEach(() => Model.mockClear())
 
-    test('it should raise error if scope is invalid', () => {
-      expect(() => IterationResource.getIterations({scope: 'done'})).toThrowError('Invalid scope')
+    test('it should raise error if scope is invalid', async () => {
+      await expect(IterationResource.getIterations({scope: 'done'})).rejects.toThrowError('Invalid scope')
     })
 
     test('it should call fetch with the right params', async () => {
@@ -69,8 +69,8 @@ describe('#iterations', () => {
       expect(IterationResource.getIterations).toHaveBeenCalledTimes(1)
     })
 
-    test('it should raise error if scope is invalid', () => {
-      expect(() => IterationResource.getDoneIterations('invalid')).toThrowError('Invalid scope')
+    test('it should raise error if scope is invalid', async () => {
+      await expect(IterationResource.getDoneIterations('invalid')).rejects.toThrowError('Invalid scope')
     })
 
 
@@ -89,6 +89,37 @@ describe('#iterations', () => {
     test('it should call fetch with the right params', async () => {
       await IterationResource.getIterationCycleTime(1)
       expect(modelMockInstance._fetch).toHaveBeenCalledWith('get', 'undefined/iterations/1/analytics/cycle_time_details')
+    })
+  })
+
+  describe('compressIterations', () => {
+    it('should return iteration story name and id', () => {
+      const compressedIterations = PtIteration.compressIterations([
+        {
+          stories:[
+            {
+              name: 'Finish social login',
+              id: 5,
+              state: 'started'
+            },
+            {
+              name: 'Edit article',
+              id: 6,
+              state: 'unstarted'
+            }
+          ]
+        },
+        {
+          stories: [
+            {
+              name: 'Create article',
+              id: 10,
+              state: 'finished'
+            }
+          ]
+        }
+      ])
+      expect(compressedIterations).toMatchObject(['Finish social login - 5', 'Edit article - 6', 'Create article - 10'])
     })
   })
 })
