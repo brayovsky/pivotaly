@@ -1,4 +1,5 @@
 const Model = require('../')
+const {generateQuickPickArray} = require('../../lib/adapters/generateQuickPickArray')
 
 class PtIterations extends Model{
   constructor(context) {
@@ -14,19 +15,35 @@ class PtIterations extends Model{
     }
   }
 
-  getDoneIterations(scope = 'done_current', maxIterations) {
+  async getDoneIterations(scope = 'done_current', maxIterations, compress = false) {
     if(!['done', 'current', 'backlog', 'current_backlog', 'done_current'].includes(scope)) throw new Error('Invalid scope')
     if(!scope.includes('done')) return this.getIterations({scope})
-    return this._fetch('get', this._endpoints.getDoneIterations(scope, maxIterations))
+    const iterations = await this._fetch('get', this._endpoints.getDoneIterations(scope, maxIterations))
+    if(!compress) return iterations
+    return PtIterations.compressIterations(iterations.data)
   }
 
-  getIterations(params) {
+  async getIterations(params, compress = false) {
     if(params.scope && !['current', 'backlog', 'current_backlog'].includes(params.scope)) throw new Error('Invalid scope')
-    return this._fetch('get', this._endpoints.getIterations(params))
+    const iterations = await this._fetch('get', this._endpoints.getIterations(params))
+    if(!compress) return iterations
+    return PtIterations.compressIterations(iterations.data)
   }
 
   getIterationCycleTime(iterationNumber) {
     return this._fetch('get', this._endpoints.getIterationCycleTime(iterationNumber))
+  }
+
+  /**
+   * Compress iterations to stories only with format {name - id}
+   * 
+   * @param {array} iterations all iterations returned from _fetch
+   * @returns {array} compressed iterations
+   */
+  static compressIterations(iterations) {
+    const scopeStories = []
+    iterations.forEach(iteration => Array.prototype.push.apply(scopeStories, iteration.stories))
+    return generateQuickPickArray(scopeStories)
   }
 }
 

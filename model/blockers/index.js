@@ -10,6 +10,7 @@ class PtBlocker extends PtStory {
   get _blockerEndpoints() {
     return {
       ...this._endpoints,
+      createBlocker: this._baseBlockerPath,
       getBlockers: this._baseBlockerPath,
       updateBlocker: `${this._baseBlockerPath}/${this.blockerId}`
     }
@@ -21,6 +22,14 @@ class PtBlocker extends PtStory {
 
   updateBlocker(updateData) {
     return this._update('put', this._blockerEndpoints.updateBlocker, updateData)
+  }
+
+  createBlocker(description) {
+    return this._update('post', this._blockerEndpoints.createBlocker, {
+      description, 
+      story_id: this.storyId,
+      project_id: this._projectId
+    })
   }
 }
 

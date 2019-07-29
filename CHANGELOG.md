@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to the "pivotaly" extension will be documented in this file.
 
+## [0.6.0]
+#### Added
+- Add blockers from story information view
+- Add tasks from story information view
+- Add points per story in member cycle view
+- Use regular expression as a branch delimiter
+- Community guidelines for contributing
+
+#### Fixed
+- Delivering chore causes error
 
 ## [0.5.3]
 #### Added

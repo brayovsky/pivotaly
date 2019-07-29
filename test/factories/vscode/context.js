@@ -15,7 +15,8 @@ module.exports = new Factory()
         }
         const workspaceState = { 
           "pivotaly.state": JSON.stringify(state),
-          "pivotaly.isARepo": chance.bool()
+          "pivotaly.isARepo": chance.bool(),
+          "pivotaly.projectID": chance.integer()
         }
         return workspaceState[key]
       },
