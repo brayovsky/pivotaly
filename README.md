@@ -61,7 +61,7 @@ Pivotaly contributes the following settings:
 
 * `pivotaly.protectedBranches`: Array of git branches that are ideally not feature branches e.g. `master`. Pivotaly will not attempt to link a story to git branches added.
 
-* `pivotaly.branchDelimiter`: Delimiter to use to retrieve story ID. e.g. set to `'-'` to get id `345` from `ft-edit-read-me-345` or `'_'` to get `345` from `ft-edit-read-me_345`
+* `pivotaly.branchDelimiter`: Delimiter string or RegExp to use to retrieve story ID. e.g. set to `'-'` to get id `345` from `ft-edit-read-me-345` or `'_'` to get `345` from `ft-edit-read-me_345`  or `[\/-]` to get `678` from `feature/678-read-me`
 
 ## Known Issues
 
