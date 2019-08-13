@@ -24,3 +24,4 @@ module.exports = new Factory()
     }
   ]))
   .attr('subscriptions', [])
+  .attr('asAbsolutePath', () => path => path)
