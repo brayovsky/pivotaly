@@ -31,7 +31,7 @@ class Model {
    * @param {object} updateData 
    * @returns {promise}
    */
-  callApi(method, path, updateData){
+  callApi(method, path, updateData = null){
     const params = []
     method = method.toLowerCase();
     params.push({
@@ -41,7 +41,7 @@ class Model {
       }
     })
   
-    updateData ? params.push(updateData) : null
+    updateData && params.push(updateData)
   
     return new Promise((resolve, reject) => {
       this._pivotalTrackerClient[method](
