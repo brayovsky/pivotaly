@@ -2,7 +2,7 @@ const clients = require('restify-clients')
 const _ = require('lodash')
 const {common} = require('../lib/commands/common')
 const {normaliseFields} = require('../lib/adapters/normaliseFields')
-const requestToken = require('../lib/procedures/requestToken')
+const rebounds = require('./rebounds')
 
 class Model {
   constructor(context) {
@@ -49,7 +49,9 @@ class Model {
         (err, req, res, data) => {
           if(err){
             if(err.statusCode === 403 && err.restCode === 'invalid_authentication')
-              requestToken('Invalid token detected', [this._context])
+              rebounds('token', this._context)
+            if(err.code === "ENOTFOUND")
+              rebounds('network', this._context)
             return reject(err.restCode)
           }
           resolve({res, data})
