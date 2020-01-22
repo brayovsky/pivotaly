@@ -42,7 +42,7 @@ class Model {
     })
   
     updateData && params.push(updateData)
-  
+
     return new Promise((resolve, reject) => {
       this._pivotalTrackerClient[method](
         ...params,
