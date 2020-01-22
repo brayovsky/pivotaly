@@ -16,7 +16,7 @@
           "regexp": "(.*?)"
         },
         "endsPattern": {
-          "regexp": "Version: webpack.+",
+          "regexp": "Version: webpack.+"
         }
       }
     }

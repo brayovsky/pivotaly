@@ -19,7 +19,7 @@
         "cwd": "${workspaceFolder}",
         "outFiles": ["${workspaceFolder}/dist/*.js"],
         "args": [
-            "--extensionDevelopmentPath=${workspaceFolder}",
+            "--extensionDevelopmentPath=${workspaceFolder}"
         ],
         "sourceMaps": true,
         "smartStep": true,
