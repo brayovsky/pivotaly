@@ -21,6 +21,7 @@ const setUpNotPtProjectEnvironment = async context => {
     commands.registerCommand(commandRepo.commands.internal.reinstateWorkspace, () => commandRepo.reinstateWorkspace(context))
   )
 }
+
 const activate = async context => {
   if(workspace.workspaceFolders === undefined) return
 
