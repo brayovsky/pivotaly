@@ -14,6 +14,13 @@ const {listenForCheckOut} = require('../lib/helpers/git')
 const GitEvents = require('../lib/events/gitEvents')
 
 
+const setUpNotPtProjectEnvironment = async context => {
+  const cpProvider = new ControlPanelDataProvider(context, null, null, false)
+  context.subscriptions.push(
+    window.registerTreeDataProvider(views.controlPanel, cpProvider),
+    commands.registerCommand(commandRepo.commands.internal.reinstateWorkspace, () => commandRepo.reinstateWorkspace(context))
+  )
+}
 const activate = async context => {
   if(workspace.workspaceFolders === undefined) return
 
@@ -22,7 +29,12 @@ const activate = async context => {
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
-  if(context.workspaceState.get(common.globals.notPTProject) === true) return;
+  /*
+  For testing
+  Set notPTProject as true
+  */
+  context.workspaceState.update(common.globals.notPTProject, true)
+  if(context.workspaceState.get(common.globals.notPTProject) === true) return setUpNotPtProjectEnvironment(context);
 
   const statusBarItem = createPTStatusBarItem()
 
