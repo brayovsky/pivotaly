@@ -30,7 +30,7 @@ const activate = async context => {
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
-  if(context.workspaceState.get(common.globals.notPTProject) === true) return setUpNotPtProjectEnvironment(context);
+  if(context.workspaceState.get(common.globals.notPTProject)) return setUpNotPtProjectEnvironment(context);
 
   const statusBarItem = createPTStatusBarItem()
 
