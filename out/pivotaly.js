@@ -8,6 +8,7 @@ const {common} = require('../lib/commands/common')
 const ControlPanelDataProvider = require('../lib/views/controlPanel/cpDataProvider')
 const CycleTimeDataProvider = require('../lib/views/memberCycletime/cycleTimeDataProvider')
 const StoryInfoDataProvider = require('../lib/views/storyInfo/storyInfoDataProvider')
+const CurrentAndBacklogDataProvider = require('../lib/views/currentandBacklog/currentandBacklogDataProvider')
 const views = require('../lib/views/views')
 const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
 const {listenForCheckOut} = require('../lib/helpers/git')
@@ -37,12 +38,14 @@ const activate = async context => {
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider)
+  const currentBacklogProvider = new CurrentAndBacklogDataProvider(context)
 
   context.subscriptions.push(
     statusBarItem,
     window.registerTreeDataProvider(views.memberCycle, cycleTimeProvider),
     window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
     window.registerTreeDataProvider(views.controlPanel, cpProvider),
+    window.registerTreeDataProvider(views.currentAndBacklog, currentBacklogProvider),
     commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
