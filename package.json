@@ -173,6 +173,10 @@
           "name": "Member cycle time"
         },
         {
+          "id": "pivotaly.view.currentAndBacklog",
+          "name": "Current and Backlog Stories"
+        },
+        {
           "id": "pivotaly.view.storyinfo",
           "name": "Story Information"
         },
