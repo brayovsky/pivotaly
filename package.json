@@ -254,6 +254,11 @@
           "command": "pivotaly.addTask",
           "when": "viewItem == taskTitle",
           "group": "inline"
+        },
+        {
+          "command": "pivotaly.startStory",
+          "when": "viewItem == backlogStory",
+          "group": "inline"
         }
       ]
     }
