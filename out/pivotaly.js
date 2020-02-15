@@ -12,7 +12,6 @@ const CurrentAndBacklogDataProvider = require('../lib/views/currentandBacklog/cu
 const views = require('../lib/views/views')
 const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
 const {listenForCheckOut} = require('../lib/helpers/git')
-const GitEvents = require('../lib/events/gitEvents')
 
 
 const setUpNotPtProjectEnvironment = async context => {
@@ -46,7 +45,7 @@ const activate = async context => {
     window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
     window.registerTreeDataProvider(views.controlPanel, cpProvider),
     window.registerTreeDataProvider(views.currentAndBacklog, currentBacklogProvider),
-    commands.registerCommand(commandRepo.commands.storyState.startStory, () => commandRepo.startStory(context)),
+    commands.registerCommand(commandRepo.commands.storyState.startStory, viewletTreeItem => commandRepo.startStory(context, viewletTreeItem)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
@@ -75,12 +74,7 @@ const activate = async context => {
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
-    const gitEvents = new GitEvents()
-    gitEvents.on('checkout', () => {
-      if(context.workspaceState.get(common.globals.notPTProject) === true) return
-      validateStory(context, storyInfoProvider)
-    })
-    listenForCheckOut(gitEvents)
+    listenForCheckOut(context, validateStory, storyInfoProvider)
   }
 }
 
