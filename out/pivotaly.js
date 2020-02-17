@@ -45,7 +45,7 @@ const activate = async context => {
     window.registerTreeDataProvider(views.storyInfo, storyInfoProvider),
     window.registerTreeDataProvider(views.controlPanel, cpProvider),
     window.registerTreeDataProvider(views.currentAndBacklog, currentBacklogProvider),
-    commands.registerCommand(commandRepo.commands.storyState.startStory, viewletTreeItem => commandRepo.startStory(context, viewletTreeItem)),
+    commands.registerCommand(commandRepo.commands.storyState.startStory, backlogTreeItem => commandRepo.startStory(context, storyInfoProvider, backlogTreeItem)),
     commands.registerCommand(commandRepo.commands.storyState.stopStory, () => commandRepo.stopStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.finishStory, () => commandRepo.finishStory(context)),
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
@@ -74,7 +74,7 @@ const activate = async context => {
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
-    listenForCheckOut(context, validateStory, storyInfoProvider)
+    listenForCheckOut(context, validateStory, context, storyInfoProvider)
   }
 }
 
