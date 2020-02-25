@@ -130,6 +130,14 @@
           "light": "images/octicons/sync.svg",
           "dark": "images/octicons/sync-light.svg"
         }
+      },
+      {
+        "command": "pivotaly.copy",
+        "title": "Copy",
+        "icon": {
+          "light": "images/octicons/clipboard.svg",
+          "dark": "images/octicons/clipboard-light.svg"
+        }
       }
     ],
     "configuration": [
@@ -258,7 +266,12 @@
         {
           "command": "pivotaly.startStory",
           "when": "viewItem == backlogStory",
-          "group": "inline"
+          "group": "inline@1"
+        },
+        {
+          "command": "pivotaly.copy",
+          "when": "viewItem == backlogStory",
+          "group": "inline@2"
         }
       ]
     }
@@ -280,6 +293,7 @@
   },
   "dependencies": {
     "chance": "^1.0.16",
+    "clipboardy": "^2.2.0",
     "coveralls": "^3.0.2",
     "lodash": ">=4.17.11",
     "moment": "^2.22.2",
