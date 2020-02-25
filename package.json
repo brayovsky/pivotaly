@@ -133,7 +133,7 @@
       },
       {
         "command": "pivotaly.copy",
-        "title": "Copy text",
+        "title": "Copy",
         "icon": {
           "light": "images/octicons/clipboard.svg",
           "dark": "images/octicons/clipboard-light.svg"
@@ -266,12 +266,12 @@
         {
           "command": "pivotaly.startStory",
           "when": "viewItem == backlogStory",
-          "group": "inline@2"
+          "group": "inline@1"
         },
         {
           "command": "pivotaly.copy",
           "when": "viewItem == backlogStory",
-          "group": "inline@1"
+          "group": "inline@2"
         }
       ]
     }
