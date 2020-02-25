@@ -125,7 +125,15 @@
       },
       {
         "command": "pivotaly.refreshMemberCycleView",
-        "title": "Reload Member Cycle",
+        "title": "Refresh Member Cycle",
+        "icon": {
+          "light": "images/octicons/sync.svg",
+          "dark": "images/octicons/sync-light.svg"
+        }
+      },
+      {
+        "command": "pivotaly.refreshBacklog",
+        "title": "Refresh Backlog",
         "icon": {
           "light": "images/octicons/sync.svg",
           "dark": "images/octicons/sync-light.svg"
@@ -229,7 +237,12 @@
         {
           "command": "pivotaly.refreshMemberCycleView",
           "when": "view == pivotaly.view.membercycle",
-          "group": "navigation@1"
+          "group": "navigation"
+        },
+        {
+          "command": "pivotaly.refreshBacklog",
+          "when": "view == pivotaly.view.currentAndBacklog",
+          "group": "navigation"
         }
       ],
       "view/item/context": [
