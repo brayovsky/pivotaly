@@ -62,7 +62,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.addBlocker, blockerTreeItem => commandRepo.addBlocker(blockerTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.resolveBlocker, blockerTreeItem => commandRepo.resolveBlocker(blockerTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.unResolveBlocker, blockerTreeItem => commandRepo.unresolveBlocker(blockerTreeItem, context)),
-    commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description))
+    commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description)),
+    commands.registerCommand(commandRepo.commands.internal.copyToClipboard, text => commandRepo.copy(text))
   )
 
   validate('token', context).then(_didValidationSucceed => {
