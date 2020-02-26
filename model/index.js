@@ -48,17 +48,17 @@ class Model {
         ...params,
         (err, req, res, data) => {
           if(err){
-            if(err.statusCode === 403 && err.restCode === 'invalid_authentication')
-              rebounds('token', this._context)
-            if(err.code === "ENOTFOUND")
-              rebounds('network', this._context)
-            return reject(err.restCode)
+            return rebounds(err.restCode || err.code, this._context, err)
+            .then(redo => {
+              redo ? resolve(this.callApi(method, path, updateData)) :
+                reject(err.restCode || err.code)
+            })
           }
           resolve({res, data})
         })
     })
   };
-  
+
   _appendFields(path, fields) {
     fields = normaliseFields(fields).join()
     return fields.length > 0 ? `${path}?fields=${fields}` : path
