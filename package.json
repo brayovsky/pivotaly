@@ -146,6 +146,10 @@
           "light": "images/octicons/clipboard.svg",
           "dark": "images/octicons/clipboard-light.svg"
         }
+      },
+      {
+        "command": "pivotaly.estimateStory",
+        "title": "Estimate story"
       }
     ],
     "configuration": [
