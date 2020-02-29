@@ -10,6 +10,7 @@ class Model {
     this._pivotalTrackerClient = clients.createJsonClient(common.globals.pivotalBaseUrl)
     this._projectId = context.workspaceState.get(common.globals.projectID)
     this._token = context.globalState.get(common.globals.APItoken)
+    this.retryLimit = 3
   }
 
   get _baseApiPath(){
@@ -31,7 +32,7 @@ class Model {
    * @param {object} updateData 
    * @returns {promise}
    */
-  callApi(method, path, updateData = null){
+  callApi(method, path, updateData = null, noOftries = 1){
     const params = []
     method = method.toLowerCase();
     params.push({
@@ -48,9 +49,12 @@ class Model {
         ...params,
         (err, req, res, data) => {
           if(err){
-            return rebounds(err.restCode || err.code, this._context, err)
+            return rebounds(err, this._context)
             .then(redo => {
-              redo ? resolve(this.callApi(method, path, updateData)) :
+              if(redo) {
+                noOftries++ === this.retryLimit ? reject(err.restCode || err.code) :
+                  resolve(this.callApi(method, path, updateData, noOftries))
+              } else
                 reject(err.restCode || err.code)
             })
           }
