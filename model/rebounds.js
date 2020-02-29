@@ -8,11 +8,12 @@ const messages = {
   estimate: 'You need to estimate your story first'
 }
 
-module.exports = async (elementValidated, msg = '', err) => {
-  msg = msg || messages[elementValidated]
+module.exports = async (err, msg = '') => {
+  const errCode = err.restCode || err.code
+  msg = msg || messages[errCode]
   let redoAction = false
 
-  switch(elementValidated){
+  switch(errCode){
     case 'ENOTFOUND':
       window.showWarningMessage(msg)
       break
@@ -25,12 +26,15 @@ module.exports = async (elementValidated, msg = '', err) => {
         err.body.validation_errors.some(valError => valError.field === 'estimate')
       if(hasEstimateError) {
         window.showErrorMessage(messages.estimate)
-        // execute estimate command
-        // resolve 'redo'
+        await commands.executeCommand(commandRepo.commands.storyState.estimateStory)
         redoAction = true
       } else {
         window.showErrorMessage(msg)
       }
+      break
+    default:
+      window.showErrorMessage('An error occured')
   }
+  
   return redoAction
 }
