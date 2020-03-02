@@ -33,33 +33,44 @@ describe('#model', () => {
   })
 
   describe('callApi', () => {
-    test('it should rebound to network if no connection is available', async () => {
-      clients.createJsonClient.mockReturnValue({
-        get: (params, cb) => {
-          cb({code: 'ENOTFOUND'})
-        }
-      })
-      const model = new Model(context)
-
-      model.callApi('get', '')
-      expect(rebounds).toHaveBeenCalledTimes(1)
-      expect(rebounds).toHaveBeenCalledWith('network', context)
+    afterEach(() => {
+      jest.clearAllMocks()
     })
 
-    test('it should rebound to token if authentication fails', async () => {
+    test('it should rebound with error object if an error occurrs', async () => {
+      const errObject = {code: 'ENOTFOUND'}
       clients.createJsonClient.mockReturnValue({
         get: (params, cb) => {
-          cb({
-            statusCode: 403,
-            restCode: 'invalid_authentication'
-          })
+          cb(errObject)
         }
       })
       const model = new Model(context)
 
-      model.callApi('get', '')
-      expect(rebounds).toHaveBeenCalledTimes(1)
-      expect(rebounds).toHaveBeenCalledWith('token', context)
+      rebounds.mockResolvedValue(false)
+      try {
+        await model.callApi('get', '')
+      } catch(e) {
+        expect(rebounds).toHaveBeenCalledTimes(1)
+        expect(rebounds).toHaveBeenCalledWith(errObject, context)
+        expect(e).toBe('ENOTFOUND')
+      }
+    })
+
+    test('it should retry specified number of times if a rebound returns true', async () => {
+      const errObject = {restCode: 'invalid_authentication'}
+      clients.createJsonClient.mockReturnValue({
+        get: (params, cb) => {
+          cb(errObject)
+        }
+      })
+      rebounds.mockResolvedValue(true)
+      const model = new Model(context)
+      try {
+        await model.callApi('get', '')
+      } catch (e) {
+        expect(rebounds).toHaveBeenCalledTimes(model.retryLimit)
+        expect(e).toBe('invalid_authentication')
+      }
     })
   })
 })
