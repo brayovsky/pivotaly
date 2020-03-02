@@ -21,6 +21,7 @@ module.exports = {
   },
   window: {
     showInformationMessage: function(){return {valueOne: 'one'}},
+    showErrorMessage: jest.fn(),
     showInputBox: function () {
         return 'storyId'
     },
