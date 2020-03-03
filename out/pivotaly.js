@@ -1,6 +1,6 @@
 const {workspace, commands, window} = require('vscode')
 const {createPTStatusBarItem} = require('../lib/pivotaly/createPTStatusBarItem')
-const {validate, validateStory} = require('../lib/validation/validate')
+const {validateStory} = require('../lib/validation/validate')
 const commandRepo = require('../lib/commands')
 const isRepo = require('../lib/validation/validators/isRepo')
 const {refreshState} = require('../lib/helpers/state')
@@ -67,13 +67,6 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.internal.copyToClipboard, text => commandRepo.copy(text, context)),
     commands.registerCommand(commandRepo.commands.storyState.estimateStory, () => commandRepo.estimateStory(context, storyInfoProvider))
   )
-
-  validate('token', context).then(_didValidationSucceed => {
-    validate('projectID', context, true).then(_didProjectValidationSucceed => {
-      if (isARepo) validateStory(context, storyInfoProvider)
-      else validate('story', context, true).then(didSucceed => {}, didFail => {})
-    }, _didProjectValidationSucceed => {})
-  }, _didValidationSucceed => {})
 
   if(isARepo){
     unlinkGitEmit(context, rootPath)
