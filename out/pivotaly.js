@@ -12,15 +12,7 @@ const CurrentAndBacklogDataProvider = require('../lib/views/currentandBacklog/cu
 const views = require('../lib/views/views')
 const unlinkGitEmit = require('../lib/fixes/unlinkGitEmit')
 const {listenForCheckOut} = require('../lib/helpers/git')
-
-
-const setUpNotPtProjectEnvironment = async context => {
-  const cpProvider = new ControlPanelDataProvider(context, null, null, false)
-  context.subscriptions.push(
-    window.registerTreeDataProvider(views.controlPanel, cpProvider),
-    commands.registerCommand(commandRepo.commands.internal.reinstateWorkspace, () => commandRepo.reinstateWorkspace(context))
-  )
-}
+const {setUpNotPtProjectEnvironment} = require('../lib/helpers/workspace')
 
 const activate = async context => {
   if(workspace.workspaceFolders === undefined) return
@@ -30,13 +22,13 @@ const activate = async context => {
   const isARepo = rootPath ? await isRepo(rootPath) : false
   context.workspaceState.update(common.globals.isARepo, isARepo)
 
-  if(context.workspaceState.get(common.globals.notPTProject)) return setUpNotPtProjectEnvironment(context);
+  if(context.workspaceState.get(common.globals.notPTProject)) return setUpNotPtProjectEnvironment(context, false)
 
   const statusBarItem = createPTStatusBarItem()
 
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
-  const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider)
+  const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider, true)
   const currentBacklogProvider = new CurrentAndBacklogDataProvider(context)
 
   context.subscriptions.push(
