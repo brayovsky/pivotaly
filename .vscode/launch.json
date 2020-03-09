@@ -3,13 +3,27 @@
   "version": "0.2.0",
   "configurations": [
     {
-        "name": "Debug Pivotaly",
+        "name": "Debug Pivotaly Code",
         "type": "extensionHost",
         "request": "launch" ,
         "runtimeExecutable": "${execPath}",
         "args": [
             "--extensionDevelopmentPath=${workspaceFolder}"
         ]
+    },
+    {
+        "name": "Debug Pivotaly Build",
+        "type": "extensionHost",
+        "request": "launch" ,
+        "runtimeExecutable": "${execPath}",
+        "cwd": "${workspaceFolder}",
+        "outFiles": ["${workspaceFolder}/dist/*.js"],
+        "args": [
+            "--extensionDevelopmentPath=${workspaceFolder}"
+        ],
+        "sourceMaps": true,
+        "smartStep": true,
+        "preLaunchTask": "Live Reload"
     }
 ]
 }

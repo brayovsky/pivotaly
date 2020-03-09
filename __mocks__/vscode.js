@@ -21,6 +21,7 @@ module.exports = {
   },
   window: {
     showInformationMessage: function(){return {valueOne: 'one'}},
+    showErrorMessage: jest.fn(),
     showInputBox: function () {
         return 'storyId'
     },
@@ -46,6 +47,7 @@ module.exports = {
   },
   EventEmitter: class {},
   commands: {
-    executeCommand: jest.fn()
+    executeCommand: jest.fn(),
+    registerCommand: jest.fn()
   }
 }

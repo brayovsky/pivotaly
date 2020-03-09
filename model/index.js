@@ -2,7 +2,7 @@ const clients = require('restify-clients')
 const _ = require('lodash')
 const {common} = require('../lib/commands/common')
 const {normaliseFields} = require('../lib/adapters/normaliseFields')
-const requestToken = require('../lib/procedures/requestToken')
+const rebounds = require('./rebounds')
 
 class Model {
   constructor(context) {
@@ -10,6 +10,7 @@ class Model {
     this._pivotalTrackerClient = clients.createJsonClient(common.globals.pivotalBaseUrl)
     this._projectId = context.workspaceState.get(common.globals.projectID)
     this._token = context.globalState.get(common.globals.APItoken)
+    this.retryLimit = 3
   }
 
   get _baseApiPath(){
@@ -31,7 +32,7 @@ class Model {
    * @param {object} updateData 
    * @returns {promise}
    */
-  callApi(method, path, updateData){
+  callApi(method, path, updateData = null, noOftries = 1){
     const params = []
     method = method.toLowerCase();
     params.push({
@@ -41,22 +42,27 @@ class Model {
       }
     })
   
-    updateData ? params.push(updateData) : null
-  
+    updateData && params.push(updateData)
+
     return new Promise((resolve, reject) => {
       this._pivotalTrackerClient[method](
         ...params,
         (err, req, res, data) => {
           if(err){
-            if(err.statusCode === 403 && err.restCode === 'invalid_authentication')
-              requestToken('Invalid token detected', [this._context])
-            return reject(err.restCode)
+            return rebounds(err, this._context)
+            .then(redo => {
+              if(redo) {
+                noOftries++ === this.retryLimit ? reject(err.restCode || err.code) :
+                  resolve(this.callApi(method, path, updateData, noOftries))
+              } else
+                reject(err.restCode || err.code)
+            })
           }
           resolve({res, data})
         })
     })
   };
-  
+
   _appendFields(path, fields) {
     fields = normaliseFields(fields).join()
     return fields.length > 0 ? `${path}?fields=${fields}` : path
