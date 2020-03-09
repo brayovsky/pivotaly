@@ -47,6 +47,7 @@ module.exports = {
   },
   EventEmitter: class {},
   commands: {
-    executeCommand: jest.fn()
+    executeCommand: jest.fn(),
+    registerCommand: jest.fn()
   }
 }
