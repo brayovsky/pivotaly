@@ -31,9 +31,6 @@ module.exports = async (err, msg = '') => {
       } else {
         window.showErrorMessage(msg)
       }
-      break
-    default:
-      window.showErrorMessage('An error occured')
   }
   
   return redoAction
