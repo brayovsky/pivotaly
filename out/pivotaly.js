@@ -29,7 +29,7 @@ const activate = async context => {
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider, true)
-  const currentBacklogProvider = new CurrentAndBacklogDataProvider(context)
+  const currentBacklogProvider = new CurrentAndBacklogDataProvider(context, storyInfoProvider)
 
   context.subscriptions.push(
     statusBarItem,
