@@ -9,7 +9,7 @@ class Model {
     this._context = context
     this._pivotalTrackerClient = clients.createJsonClient(common.globals.pivotalBaseUrl)
     this._projectId = context.workspaceState.get(common.globals.projectID)
-    this._token = context.globalState.get(common.globals.APItoken)
+    this._token = context.globalState.get(common.globals.APItoken, ' ')
     this.retryLimit = 3
   }
 
