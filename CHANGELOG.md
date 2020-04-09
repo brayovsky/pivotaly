@@ -2,7 +2,7 @@
 All notable changes to the "pivotaly" extension will be documented in this file.
 
 ## [0.7.2]
-### Added
+#### Added
 - Option to view story details of current and backlog stories.
 
 #### Fixed
