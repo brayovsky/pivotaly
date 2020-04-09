@@ -1,6 +1,26 @@
 # Change Log
 All notable changes to the "pivotaly" extension will be documented in this file.
 
+## [0.7.2]
+#### Added
+- Option to view story details of current and backlog stories.
+
+#### Fixed
+- Broken view of tasks and blockers in story information view.
+
+## [0.7.1]
+#### Fixed
+- Validation of project id and token on start.
+
+## [0.7.0]
+#### Added
+- Option to reinstate a workspace marked as not a Pivotal Tracker Project back to a Pivotal Tracker Project.
+- A view of current and backlog stories with an option to start a story from the view or copy its ID.
+- Adding or editing story points from story information view.
+
+#### Fixed
+- Error when starting an unestimated story.
+
 ## [0.6.0]
 #### Added
 - Add blockers from story information view

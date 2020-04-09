@@ -9,7 +9,7 @@ Fork and clone your fork of the repository
 
 Prerequisites
 - [Git](https://git-scm.com)
-- [NodeJs](https://nodejs.org/en/), >= 8.9.1
+- [NodeJs](https://nodejs.org/en/), >= 10.19.0
 - [npm](https://npmjs.com)
 
 
