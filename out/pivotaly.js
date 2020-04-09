@@ -29,7 +29,8 @@ const activate = async context => {
   const cycleTimeProvider = new CycleTimeDataProvider(context, 6, 'done_current')
   const storyInfoProvider = new StoryInfoDataProvider(context)
   const cpProvider = new ControlPanelDataProvider(context, storyInfoProvider, cycleTimeProvider, true)
-  const currentBacklogProvider = new CurrentAndBacklogDataProvider(context)
+  const storyInfoProviderForBacklog = new StoryInfoDataProvider(context)
+  const currentBacklogProvider = new CurrentAndBacklogDataProvider(context, storyInfoProviderForBacklog)
 
   context.subscriptions.push(
     statusBarItem,
@@ -43,8 +44,8 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.deliverStory, () => commandRepo.deliverStory(context)),
     commands.registerCommand(commandRepo.commands.workState.linkStory, () => commandRepo.linkStory(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.internal.showCommandsQuickPick, () => commandRepo.showAllCommands(context, storyInfoProvider)),
-    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context, storyInfoProvider)),
-    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context, storyInfoProvider)),
+    commands.registerCommand(commandRepo.commands.internal.registerToken, () => commandRepo.registerToken(context)),
+    commands.registerCommand(commandRepo.commands.internal.registerProjectID, () => commandRepo.registerProjectID(context)),
     commands.registerCommand(commandRepo.commands.statistics.cycleTime, (context, iteration) =>  commandRepo.showStats(context, iteration)),
     commands.registerCommand(commandRepo.commands.storyState.refreshStateView, () => commandRepo.refreshStateView(context, storyInfoProvider)),
     commands.registerCommand(commandRepo.commands.storyState.refreshMemberCycleView, () => commandRepo.refreshDataProvider(cycleTimeProvider)),
@@ -57,7 +58,7 @@ const activate = async context => {
     commands.registerCommand(commandRepo.commands.storyState.unResolveBlocker, blockerTreeItem => commandRepo.unresolveBlocker(blockerTreeItem, context)),
     commands.registerCommand(commandRepo.commands.storyState.showStoryDescription, description => commandRepo.viewStoryDescription(description)),
     commands.registerCommand(commandRepo.commands.internal.copyToClipboard, text => commandRepo.copy(text, context)),
-    commands.registerCommand(commandRepo.commands.storyState.estimateStory, () => commandRepo.estimateStory(context, storyInfoProvider))
+    commands.registerCommand(commandRepo.commands.storyState.estimateStory, (storyId, dataProvider) => commandRepo.estimateStory(context, storyId, dataProvider))
   )
 
   validate('projectID', context, true)
