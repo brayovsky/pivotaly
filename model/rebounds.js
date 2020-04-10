@@ -22,15 +22,7 @@ module.exports = async (err, msg = '') => {
       commands.executeCommand(commandRepo.commands.internal.registerToken)
       break
     case 'invalid_parameter':
-      const hasEstimateError = err.body.validation_errors &&
-        err.body.validation_errors.some(valError => valError.field === 'estimate')
-      if(hasEstimateError) {
-        window.showErrorMessage(messages.estimate)
-        await commands.executeCommand(commandRepo.commands.storyState.estimateStory)
-        redoAction = true
-      } else {
-        window.showErrorMessage(msg)
-      }
+      window.showErrorMessage(err.body.general_problem)
   }
   
   return redoAction
