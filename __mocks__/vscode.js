@@ -49,5 +49,10 @@ module.exports = {
   commands: {
     executeCommand: jest.fn(),
     registerCommand: jest.fn()
+  },
+  env: {
+    clipboard: {
+      writeText: jest.fn()
+    }
   }
 }
