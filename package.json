@@ -309,13 +309,9 @@
     ]
   },
   "dependencies": {
-    "chance": "^1.0.16",
-    "clipboardy": "^2.2.0",
-    "coveralls": "^3.0.2",
     "lodash": ">=4.17.11",
     "moment": "^2.22.2",
     "restify-clients": "2.4.0",
-    "rosie": "^2.0.1",
     "showdown": "^1.8.6",
     "simple-git": "1.96.0"
   },
@@ -327,9 +323,12 @@
     "babel-loader": "^7.1.5",
     "babel-plugin-transform-object-rest-spread": "^6.26.0",
     "babel-preset-es2015": "^6.24.1",
+    "chance": "^1.0.16",
+    "coveralls": "^3.0.2",
     "eslint": "^4.11.0",
     "jest": "^23.5.0",
     "jest-cli": "^23.5.0",
+    "rosie": "^2.0.1",
     "typescript": "^2.6.1",
     "vscode": "^1.1.6",
     "webpack": "^4.30.0",
